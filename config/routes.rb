@@ -9,4 +9,6 @@ Rakaba::Application.routes.draw do
     match ':alias/res/:id' => "threads#show"
     match ':alias/res/:id/create' => "posts#create"
   end
+
+  match '*path' => 'application#not_found_hack'
 end
