@@ -1,4 +1,6 @@
 Rakaba::Application.routes.draw do
+  root :to => 'glagne#index'
+  
   scope "/" do
     match ':alias' => "boards#index", :constraints => {:alias => /\w+/}
     match ':alias/create' => "threads#create", :constraints => {:alias => /\w+/}

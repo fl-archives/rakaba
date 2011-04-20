@@ -1,0 +1,26 @@
+= "/#{@board[:alias]}/ #{@board[:name]}"
+%br
+%br
+%form{ :action => url_for(:controller => 'threads', :action => 'create'), :method => 'post' }
+	%textarea{ :name => 'message' }
+	%br
+	%input{ :type => 'submit' }
+%hr
+%br
+%br
+-@threads.each do |thread|
+	.thread
+		%blockquote= thread.message
+		%span
+			= thread.created_at
+			%a{ :href => url_for(:controller => 'threads', :action => 'show', :id => thread._id) }= "ответить"
+	-if thread.replies_count > 3 
+		%blockquote= "#{thread.replies_count - 3} replies omitted"
+	-Post.where(:thread_id => thread._id).order('created_at DESC').limit(3).to_a.reverse.each do |post|
+		.post{ :style => 'padding:5px;border:1px solid #ccc;display:table' }
+			%blockquote= post.message
+			%span= post.created_at
+		%br
+	%hr
+	%br
+	%br

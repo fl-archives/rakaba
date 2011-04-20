@@ -1,0 +1,18 @@
+= "/#{@board[:alias]}/ #{@board[:name]}"
+%br
+%br
+.thread
+	%blockquote= @thread.message
+	%span= @thread.created_at
+-@thread.replies.each do |post|
+	%br
+	.post{ :style => 'display:table;padding:5px;border:1px solid #ccc' }
+		%blockquote= post.message
+		%span= "##{post._id}   #{post.created_at}"
+
+%br
+%br
+%form{ :action => url_for(:controller => 'posts', :action => 'create', :id => @thread._id), :method => 'post' }
+	%textarea{ :name => 'message' }
+	%br
+	%input{ :type => 'submit' }

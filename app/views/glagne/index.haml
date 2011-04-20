@@ -1,0 +1,8 @@
+Главная страница
+%br
+%br
+
+-@boards.each do |board| 
+	-link = url_for(:controller => 'boards', :action => 'index', :alias => board[:alias], :trailing_slash => true)
+	-puts link
+	%a{ :href => link }= "#{link} #{board[:name]}"
