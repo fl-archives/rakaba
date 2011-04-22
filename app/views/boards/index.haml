@@ -1,26 +1,43 @@
-= "/#{@board[:alias]}/ #{@board[:name]}"
-%br
-%br
-%form{ :action => url_for(:controller => 'threads', :action => 'create'), :method => 'post' }
-	%textarea{ :name => 'message' }
-	%br
-	%input{ :type => 'submit' }
-%hr
-%br
-%br
--@threads.each do |thread|
-	.thread
-		%blockquote= thread.message
-		%span
-			= thread.created_at
-			%a{ :href => url_for(:controller => 'threads', :action => 'show', :id => thread._id) }= "ответить"
-	-if thread.replies_count > 3 
-		%blockquote= "#{thread.replies_count - 3} replies omitted"
-	-Post.where(:thread_id => thread._id).order('created_at DESC').limit(3).to_a.reverse.each do |post|
-		.post{ :style => 'padding:5px;border:1px solid #ccc;display:table' }
-			%blockquote= post.message
-			%span= post.created_at
-		%br
+#thread_form_container
+	%form#thread_form{method: 'post', action: url_for(controller: 'threads', action: 'create')}
+		%table
+			%tr
+				%td.label
+					Тема
+				%td
+					%input#title_input{type: 'text', name: 'title'}
+					%input#submit_button{type: 'submit', value: 'отправить'}
+			%tr
+				%td.label
+					Сообщение
+				%td
+					= render template: 'editbox'
+					%textarea{name: 'message'}
+			%tr
+				%td.label
+					Файл
+				%td
+					%input#file{type: 'file', name: 'picture'}
+			%tr
+				%td.label
+					Перейти к
+				%td
+					%label
+						%input{type: 'radio', name: 'goto', checked: true}
+						треду
+					%label
+						%input{type: 'radio', name: 'goto'}
+						доске
 	%hr
 	%br
-	%br
+
+-@threads.each do |thread|
+	.thread_container
+		= render partial: 'threads/thread', object: thread
+		-if thread.replies_count > 3
+			%span.mini.omitted 
+				Пропущено #{verbose_replies(thread.replies_count - 3)}.
+				Нажмите «Открыть тред», чтобы увидеть всё целиком.
+		-p = Post.where(thread_id: thread._id).order('created_at DESC').limit(3)
+		= render partial: 'posts/post', collection: p.reverse
+		%hr

@@ -1,0 +1,11 @@
+-url = url_for controller: 'threads', action: 'show', id: thread._id
+
+.thread
+	%span.mini 
+		= verbose_date thread.created_at
+		%a.reply_link{href: url}= "No.#{thread._id}"
+		-if params[:action] != 'show'
+			[&nbsp;
+			%a{href: url}<> Открыть тред
+			&nbsp;]
+	%blockquote= parse thread.message.html_safe

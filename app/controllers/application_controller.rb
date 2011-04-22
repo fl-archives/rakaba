@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   private
   def not_found
-  	return render :template => 'not_found'
+  	return render template: 'not_found'
   end
 
   def change_board

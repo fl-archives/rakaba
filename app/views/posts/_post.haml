@@ -1,0 +1,8 @@
+-url = url_for controller: 'threads', action: 'show', id: post.thread_id
+-url += "##{post._id}"
+
+.post
+	%span.mini
+		= verbose_date post.created_at
+		%a.reply_link{href: url}= "No.#{post._id}"
+	%blockquote= parse post.message.html_safe

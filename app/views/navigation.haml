@@ -1,0 +1,5 @@
+-if ['show', 'index'].include? params[:action] 
+	-if ['threads', 'boards'].include? params[:controller]
+		#title
+			Nowai.ru — #{@board[:name]}
+		%hr

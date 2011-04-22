@@ -8,7 +8,7 @@ Rakaba::Application.routes.draw do
   
   # Threads scope
   scope "/" do
-    match ':alias/res/:id' => "threads#show"
+    match ':alias/res/:id.html' => "threads#show"
     match ':alias/res/:id/create' => "posts#create"
   end
 

@@ -2,4 +2,8 @@
 %html
 	%head
 		%title rakaba
-	%body= yield
+		%link{rel: 'stylesheet', type: 'text/css', href: '/css/photon.css'}
+	%body
+		#container
+			#navigation= render template: 'navigation'
+			#content= yield
