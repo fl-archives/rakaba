@@ -14,15 +14,15 @@ class PostsController < ApplicationController
 			author_id: 	1,
 		})
 		post = Post.create params[:post]
-		thread.bump = post.created_at
+		thread.bump = post.created_at if not post.sage
 		thread.replies_count += 1
 		thread.save
-		redirect_to url_for(
-			controller: 'threads', 
-			action: 		'show',
-			id: 				params[:id],
-			anchor:			post._id,	
-		)
+		if params[:goto] == 'thread'
+			redirect_to controller: 'threads', action: 'show',
+									id: params[:id], anchod: post._id
+		else
+			redirect_to controller: 'boards', action: 'index', alias: @board[:alias]
+		end
 	end
 
 	def update

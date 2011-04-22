@@ -9,6 +9,10 @@ a {
 	color: #f60;
 }
 
+img {
+	border: none;
+}
+
 a:hover {
 	color: #06f;
 }

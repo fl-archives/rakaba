@@ -12,7 +12,11 @@ class ThreadsController < ApplicationController
 			author_id: 	1
 		})
 		thread = RThread.create params[:r_thread]
-		redirect_to action: 'show', id: thread._id
+		if params[:goto] == 'thread'
+			redirect_to action: 'show', id: thread._id
+		else
+			redirect_to controller: 'boards', action: 'index', alias: @board[:alias]
+		end
 	end
 
 	def show

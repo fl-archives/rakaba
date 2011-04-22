@@ -12,16 +12,18 @@ module ApplicationHelper
                 'октября',  'ноября',     'декабря'    ]
     now = Time.now.getlocal
     date = date.getlocal  
-    #if now.day == date.day
-    #  if [now.month, now.year] == [date.month, date.year]
-    #    result = 'сегодня '
-    #  end
-    #elsif date.day == (now.day - 1)
-    #  if [now.month, now.year] == [date.month, date.year]
-    #    result = 'вчера '
-    #  end
+    if now.day == date.day
+      if [now.month, now.year] == [date.month, date.year]
+        result = 'сегодня '
+      end
+    elsif date.day == (now.day - 1)
+      if [now.month, now.year] == [date.month, date.year]
+        result = 'вчера '
+      end
+    else
       month = months[date.month - 1]
       result = "#{date.day} #{month} #{date.year} "
+    end
     return result + 'в ' + date.strftime('%H.%M')
   end
 
