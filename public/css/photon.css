@@ -82,6 +82,14 @@ blockquote, p {
 	font-size: 17px;
 }
 
+.title {
+	display: inline;
+	color: #024;
+	font-size: 18px;
+	margin-right: 10px;
+	font-weight: bold;
+}
+
 #thread_form #title_input {
 	width: 80%;
 }
@@ -109,9 +117,13 @@ hr {
 	border-top: 1px solid #bbb;
 }
 
-.mini {
+.mini, .file_info {
 	font-size: 13px;
 	color: #666;
+}
+
+.file_info {
+	font-size: 11px;
 }
 
 .post, #reply_form_container {
@@ -124,7 +136,8 @@ hr {
 
 .thread_container {
 	display: table;
-	margin-bottom: 50px;
+	margin-bottom: 30px;
+	margin-top: 30px;
 	width: 100%;
 }
 
@@ -230,4 +243,18 @@ hr {
 
 #reply_form table table tr td {
 padding-bottom: 8px;
+}
+
+.post_link {
+	display: inline;
+}
+
+.file img {
+	float: left;
+	margin-top: 4px;
+	margin-right: 8px;
+}
+
+.post span.mini {
+	display: inline-block;
 }

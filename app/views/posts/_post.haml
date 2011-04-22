@@ -1,8 +1,19 @@
 -url = url_for controller: 'threads', action: 'show', id: post.thread_id
 -url += "##{post._id}"
 
-.post
+.post{id: post._id}
+	-if post.file?
+		%span.file_info
+			Файл:&nbsp;
+			%a{href: post.file.url, target: '_blank'}<>
+				= post.file_file_name
+			&nbsp;(#{post.file.size / 1024} кб)
+			Показана уменьшенная копия, оригинал по клику.
+		%br
+		%a.file{href: post.file.url, target: '_blank'}
+			= image_tag post.file.url :thumb
 	%span.mini
 		= verbose_date post.created_at
 		%a.reply_link{href: url}= "No.#{post._id}"
-	%blockquote= parse post.message.html_safe
+	%blockquote= post.message.html_safe
+

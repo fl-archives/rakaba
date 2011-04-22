@@ -86,7 +86,33 @@ module ApplicationHelper
     text.gsub! /__(.+?)__/,     underline('\1')
     text.gsub! /%%(.+?)%%/,     spoiler('\1')
     text.gsub! url_regexp,      link('\1', '\2')
+    @id_counter = 0
     text.gsub! /&gt;&gt;(\d+)/, post_link('\1')
+    # SOSNOOLEY
+    text.gsub! /&gt_SOSNOOLEY;&gt;(\d+)/ do |idd|
+      if @id_counter < 10
+        @id_counter += 1
+        id = idd[8..idd.length].to_i
+        post = Post.find_by__id id
+        thread = RThread.find_by__id(id) if not post
+        if post
+          thread = RThread.find_by__id post.thread_id
+          url = ApplicationController.url_for(
+            controller:   'threads', 
+            action:       'show', 
+            id:           thread._id,
+            hash:         id
+          )
+          "<div class='post_link'><a href='#{url}'>&gt;&gt;#{id}</a></div>"
+        elsif thread
+          url = url_for(controller: 'threads', action: 'show', id: thread._id)
+          "<div class='post_link'><a href='#{url}'>&gt;&gt;#{id}</a></div>"
+        else
+          idd
+        end
+      end
+    end
+
     text.gsub! /^&gt;(.+)$/,    quote('\1')
     text.gsub! /\n(\n)+/,       '<br /><br />'
     text.gsub! /\n/,            '<br />'

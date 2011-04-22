@@ -2,33 +2,4 @@
 = render partial: 'threads/thread', object: 		@thread
 = render partial: 'posts/post',			collection: Post.where(thread_id: @thread._id)
 
-#reply_form_container
-	%form#reply_form{action: url_for(controller: 'posts', action: 'create', id: @thread._id), method: 'post'}
-		%table
-			%tr	
-				%td= render template: 'editbox'
-			%tr
-				%td
-					%textarea{name: 'message'}
-				%td
-					%table{}
-						%tr
-							%td
-								%input#file{type: 'file', name: 'picture'}
-						%tr
-							%td.mini
-								Перейти к 
-								%label
-									%input{type: 'radio', name: 'goto', checked: true}
-									треду
-								%label
-									%input{type: 'radio', name: 'goto'}
-									доске
-						%tr
-							%td.mini
-								%label
-									Сажа:
-									%input#sage{type: 'checkbox', name: 'sage'}
-						%tr
-							%td
-								%input#submit_button{type: 'submit', value: 'отправить'}
+= render template: 'reply_form'

@@ -1,11 +1,23 @@
 -url = url_for controller: 'threads', action: 'show', id: thread._id
 
-.thread
+.thread{id: thread._id}
+	-if thread.file?
+		%span.file_info
+			Файл:&nbsp;
+			%a{href: thread.file.url, target: '_blank'}<>
+				= thread.file_file_name
+			&nbsp;(#{thread.file.size / 1024} кб)
+			Показана уменьшенная копия, оригинал по клику.
+		%br
+		%a.file{href: thread.file.url, target: '_blank'}
+			= image_tag thread.file.url :thumb
 	%span.mini 
+		-if not thread.title.empty?
+			.title= thread.title
 		= verbose_date thread.created_at
 		%a.reply_link{href: url}= "No.#{thread._id}"
 		-if params[:action] != 'show'
 			[&nbsp;
 			%a{href: url}<> Открыть тред
 			&nbsp;]
-	%blockquote= parse thread.message.html_safe
+	%blockquote= thread.message.html_safe

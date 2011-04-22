@@ -1,32 +1,32 @@
 #thread_form_container
-	%form#thread_form{method: 'post', action: url_for(controller: 'threads', action: 'create')}
+	-form_for RThread.new, url: url_for(controller: 'threads', action: 'create', alias: @board[:alias]), html: {id: 'thread_form', method: 'post', multipart: true} do |f|
 		%table
 			%tr
 				%td.label
 					Тема
 				%td
-					%input#title_input{type: 'text', name: 'title'}
-					%input#submit_button{type: 'submit', value: 'отправить'}
+					= f.text_field :title, id: 'title_input'
+					= f.submit id: 'submit_button', value: 'отправить'
 			%tr
 				%td.label
 					Сообщение
 				%td
 					= render template: 'editbox'
-					%textarea{name: 'message'}
+					= f.text_area :message
 			%tr
 				%td.label
 					Файл
 				%td
-					%input#file{type: 'file', name: 'picture'}
+					= f.file_field :file, id: 'file'
 			%tr
 				%td.label
 					Перейти к
 				%td
 					%label
-						%input{type: 'radio', name: 'goto', checked: true}
+						%input{type: 'radio', name: 'goto', value: 'thread', checked: true}
 						треду
 					%label
-						%input{type: 'radio', name: 'goto'}
+						%input{type: 'radio', name: 'goto', value: 'board'}
 						доске
 	%hr
 	%br
@@ -40,4 +40,4 @@
 				Нажмите «Открыть тред», чтобы увидеть всё целиком.
 		-p = Post.where(thread_id: thread._id).order('created_at DESC').limit(3)
 		= render partial: 'posts/post', collection: p.reverse
-		%hr
+	%hr

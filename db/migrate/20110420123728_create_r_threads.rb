@@ -5,12 +5,17 @@ class CreateRThreads < ActiveRecord::Migration
     	t.string		:title
     	t.string		:ip
     	t.integer		:_id
-    	t.integer		:replies_count
+    	t.integer		:replies_count, default: 0
     	t.integer		:author_id
     	t.integer		:board_id
-    	t.boolean		:hidden
-    	t.boolean		:sticky
+    	t.boolean		:hidden, default: false
+    	t.boolean		:sticky, default: false
     	t.datetime	:bump
+      t.string    :file_file_name
+      t.string    :file_content_type
+      t.integer   :file_file_size
+      t.datetime  :file_updated_at
+      t.text      :file_info
       t.timestamps
     end
   end

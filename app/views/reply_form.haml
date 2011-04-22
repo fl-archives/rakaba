@@ -1,0 +1,33 @@
+#reply_form_container
+	-if params[:action] == 'show' and params[:controller] == 'threads'
+		-url = url_for(controller: 'posts', action: 'create', alias: @board[:alias], id: @thread._id)
+	-else
+		-url = ""
+	-form_for Post.new, url: url, html: {id: 'reply_form', method: 'post', multipart: true} do |f|
+		%table
+			%tr	
+				%td= render template: 'editbox'
+			%tr
+				%td
+					= f.text_area :message
+				%td
+					%table{}
+						%tr
+							%td
+								= f.file_field :file, id: 'file'
+						%tr
+							%td.mini
+								Перейти к 
+								%label
+									%input{type: 'radio', name: 'goto', value: 'thread', checked: true}
+									треду
+								%label
+									%input{type: 'radio', name: 'goto', value: 'board'}
+									доске
+						%tr
+							%td.mini
+								%label{for: 'sage'} Сажа:
+								= f.check_box :sage, id: 'sage'
+						%tr
+							%td
+								= f.submit id: 'submit_button', value: 'отправить'

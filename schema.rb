@@ -10,21 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420134840) do
+ActiveRecord::Schema.define(:version => 20110420143953) do
 
   create_table "b_posts", :force => true do |t|
     t.text     "message"
+    t.string   "title"
     t.string   "ip"
     t.integer  "_id"
     t.integer  "author_id"
     t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
+    t.boolean  "hidden"
+    t.boolean  "sage"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -34,17 +30,12 @@ ActiveRecord::Schema.define(:version => 20110420134840) do
     t.string   "title"
     t.string   "ip"
     t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
+    t.integer  "replies_count"
     t.integer  "author_id"
     t.integer  "board_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
+    t.boolean  "hidden"
+    t.boolean  "sticky"
     t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,8 +48,58 @@ ActiveRecord::Schema.define(:version => 20110420134840) do
     t.datetime "updated_at"
   end
 
+  create_table "dev_posts", :force => true do |t|
+    t.text     "message"
+    t.string   "title"
+    t.string   "ip"
+    t.integer  "_id"
+    t.integer  "author_id"
+    t.integer  "thread_id"
+    t.boolean  "hidden"
+    t.boolean  "sage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "dev_threads", :force => true do |t|
+    t.text     "message"
+    t.string   "title"
+    t.string   "ip"
+    t.integer  "_id"
+    t.integer  "replies_count"
+    t.integer  "author_id"
+    t.integer  "board_id"
+    t.boolean  "hidden"
+    t.boolean  "sticky"
+    t.datetime "bump"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "ids", :force => true do |t|
     t.text     "ids"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "one_a", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "one_b", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "two_a", :force => true do |t|
+    t.integer  "one_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "two_b", :force => true do |t|
+    t.integer  "one_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
