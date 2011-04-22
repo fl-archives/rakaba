@@ -1,6 +1,10 @@
+%script{type: 'text/javascript'}="var current_location = 'board';"
+
 #thread_form_container
 	-form_for RThread.new, url: url_for(controller: 'threads', action: 'create', alias: @board[:alias]), html: {id: 'thread_form', method: 'post', multipart: true} do |f|
 		%table
+			%tr
+				.errors
 			%tr
 				%td.label
 					Тема
@@ -30,13 +34,17 @@
 						доске
 	%hr
 	%br
+= render template: 'reply_form'
 
 -@threads.each do |thread|
 	.thread_container
 		= render partial: 'threads/thread', object: thread
 		-if thread.replies_count > 3
 			%span.mini.omitted 
-				Пропущено #{verbose_replies(thread.replies_count - 3)}.
+				-replies = thread.replies_count - 3
+				Пропущено
+				%span= replies
+				= verbose_replies replies
 				Нажмите «Открыть тред», чтобы увидеть всё целиком.
 		-p = Post.where(thread_id: thread._id).order('created_at DESC').limit(3)
 		= render partial: 'posts/post', collection: p.reverse

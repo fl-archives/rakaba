@@ -22,7 +22,7 @@ blockquote, p {
 	padding: 0;
 }
 
-.post, #thread_button, #reply_form_container {
+.post, #thread_button, #sreply_form_container {
 	background: #ddd;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -261,4 +261,26 @@ padding-bottom: 8px;
 
 .post span.mini {
 	display: inline-block;
+}
+
+.errors {
+	color: red;
+}
+
+.post blockquote {
+	min-width: 270px;
+}
+
+#close_button {
+	cursor: pointer;
+	color: #f60;
+	font-size: 13px;
+	float: right;
+	text-decoration: underline;
+	display: none;
+}
+
+#close_button:hover {
+	color: #06f;
+	text-decoration: none;
 }

@@ -37,7 +37,7 @@ module ApplicationHelper
         return result += 'х'
       end
     else
-      result = number.to_s + ' сообщени'
+      result = 'сообщени'
       number_mod = number % 10
       if (2..4).include? number_mod and not (12..14).include? number
         return result + 'я'

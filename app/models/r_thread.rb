@@ -5,6 +5,7 @@ class RThread < ActiveRecord::Base
 	belongs_to 	:board
 	serialize		:file_info, Hash
 	validates_length_of :title, 	maximum: 	250
+	validates_length_of :message,	maximum: 	3000
 	has_attached_file		:file, 		styles: {thumb: "200x200>"}
 
 	before_create do 

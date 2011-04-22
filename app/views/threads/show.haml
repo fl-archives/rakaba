@@ -1,5 +1,7 @@
-%a.goback{href: url_for(controller: 'boards', action: 'index', alias: @board[:alias])} ← назад
-= render partial: 'threads/thread', object: 		@thread
-= render partial: 'posts/post',			collection: Post.where(thread_id: @thread._id)
+%script{type: 'text/javascript'}="var current_location = 'thread';"
 
-= render template: 'reply_form'
+%a.goback{href: url_for(controller: 'boards', action: 'index', alias: @board[:alias], trailing_slash: true)} ← назад
+.thread_container
+	= render partial: 'threads/thread', object: 		@thread
+	= render partial: 'posts/post',			collection: Post.where(thread_id: @thread._id)
+	= render template: 'reply_form'
