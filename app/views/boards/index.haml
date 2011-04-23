@@ -44,7 +44,7 @@
 				-replies = thread.replies_count - 3
 				Пропущено
 				%span= replies
-				= verbose_replies replies
+				= "#{verbose_replies replies}."
 				Нажмите «Открыть тред», чтобы увидеть всё целиком.
 		-p = Post.where(thread_id: thread._id).order('created_at DESC').limit(3)
 		= render partial: 'posts/post', collection: p.reverse

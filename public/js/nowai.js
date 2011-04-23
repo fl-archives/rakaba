@@ -3,8 +3,28 @@ var form_moved = false;
 $(document).ready(function() {
 	$('#thread_form').submit(submit_thread);
 	$('#reply_form').submit(submit_reply);
+	$('.post').hover(post_hover, post_unhover);
+	$('#reply_form textarea').bind('keydown', 'ctrl+return', function() {
+		$(this).submit();
+	})
 	$('.reply_link').click(move_reply_form);
+	$('.delete_link').click(delete_post);
 });
+
+function delete_post() {
+	if (confirm('Вы хотите удалить этот пост?')) {
+		// удаление поста
+	}
+	return false;
+}
+
+function post_hover() {
+	$(this).find('.delete_link').css('opacity', '1');
+}
+
+function post_unhover() {
+	$(this).find('.delete_link').css('opacity', '0');
+}
 
 function blur_form(form) {
 	form.css('opacity', '0.6');
@@ -82,6 +102,8 @@ function submit_reply() {
 					number += 1
 					omitted.html(number);
 				}
+				$('.reply_link').unbind().click(move_reply_form);
+				$('.post').unbind().hover(post_hover, post_unhover);
 			}
 			else if (reply.substring(0, 2) == 'ht') {
 				// Пришла ссылка, переходим по ней

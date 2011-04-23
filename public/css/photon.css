@@ -260,7 +260,7 @@ padding-bottom: 8px;
 }
 
 .post span.mini {
-	display: inline-block;
+	display: block;
 }
 
 .errors {
@@ -268,7 +268,7 @@ padding-bottom: 8px;
 }
 
 .post blockquote {
-	min-width: 270px;
+	min-width: 300px;
 }
 
 #close_button {
@@ -283,4 +283,12 @@ padding-bottom: 8px;
 #close_button:hover {
 	color: #06f;
 	text-decoration: none;
+}
+
+.delete_link {
+	float: right;
+	text-decoration: none;
+	color: #aaa;
+	opacity: 0;
+	font-weight: bold;
 }
