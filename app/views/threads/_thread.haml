@@ -1,4 +1,4 @@
--url = url_for controller: 'threads', action: 'show', id: thread._id
+-url = url_for controller: 'threads', action: 'show', id: thread._id, format: 'html'
 
 .thread{id: thread._id}
 	-if thread.file?

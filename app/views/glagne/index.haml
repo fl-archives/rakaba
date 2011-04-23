@@ -1,8 +1,20 @@
-Главная страница
-%br
-%br
+%table#boardlist{cellpadding: 5}
+	-@boards.each do |board|
+		-url = url_for(controller: 'boards', action: 'index', alias: board.alias, trailing_slash: true)
+		-if @ids.has_key? board.alias
+			-replies = @ids[board.alias]
+		-else
+			-replies = 0	
+		%tr.board
+			%td.board_alias= 	"/#{board.alias}/"
+			%td.mini=					replies
+			%td.board_name
+				%a{href: url}=	board.name
+#infoblock
+	%blockquote#motd
+		-if @motd
+			= @motd
+		-else
+			Тут пока что никто ничего не написал.
 
--@boards.each do |board| 
-	-link = url_for(:controller => 'boards', :action => 'index', :alias => board[:alias], :trailing_slash => true)
-	-puts link
-	%a{ :href => link }= "#{link} #{board[:name]}"
+

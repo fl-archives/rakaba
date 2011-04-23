@@ -49,4 +49,8 @@ class PostsController < ApplicationController
 	def update
 		return not_found if not request.post?
 	end
+
+	def delete
+		# nothing to see here
+	end
 end

@@ -1,5 +1,6 @@
--if ['show', 'index'].include? params[:action] 
-	-if ['threads', 'boards'].include? params[:controller]
-		#title
-			Nowai.ru — #{@board[:name]}
-		%hr
+#title
+	%a{href: url_for(:root)}
+		Nowai.ru
+	-if ['boards', 'threads'].include? params[:controller]
+		&mdash; #{@board[:name]}
+%hr

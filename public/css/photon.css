@@ -22,7 +22,7 @@ blockquote, p {
 	padding: 0;
 }
 
-.post, #thread_button, #sreply_form_container {
+.post, #thread_button, #sreply_form_container, #infoblock {
 	background: #ddd;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -196,28 +196,28 @@ hr {
 }
 
 
-#editbox {
+.editbox {
 	font-size: 11px;
 	color: #666;
 }
 
-#thread_form #editbox {
+#thread_form .editbox {
 	float: left;
 	margin-bottom: 3px;
 }
 
-#editbox b, #editbox i, #editbox u, #editbox .spoiler {
+.editbox b, .editbox i, .editbox u, .editbox .spoiler {
 	margin-right: 13px;
 	cursor: pointer;
 }
 
-#editbox a {
+.editbox a {
 	color: inherit;
 	cursor: pointer;
 }
 
-#editbox b:hover, #editbox i:hover, 
-#editbox u:hover, #editbox a:hover {
+.editbox b:hover, .editbox i:hover, 
+.editbox u:hover, .editbox a:hover {
 	color: #f60;	
 }
 
@@ -256,7 +256,7 @@ padding-bottom: 8px;
 .file img {
 	float: left;
 	margin-top: 4px;
-	margin-right: 8px;
+	margin-right: 14px;
 }
 
 .post span.mini {
@@ -291,4 +291,70 @@ padding-bottom: 8px;
 	color: #aaa;
 	opacity: 0;
 	font-weight: bold;
+}
+
+blockquote {
+}
+
+#boardlist {
+	float: left;
+}
+
+.board {
+}
+
+.board_alias {
+	color: #999;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.board_name {
+	font-size: 18px;
+}
+
+.board_name a{
+	text-decoration: none;
+}
+
+.board td.mini {
+	color: #888;
+	opacity: 0;
+}
+
+
+#title a {
+	text-decoration: none;
+}
+
+#title a:hover  {
+	border-bottom: 2px dashed #06f;
+}
+
+#infoblock {
+	display: block;
+	padding: 15px;
+	float:right;
+	width: 600px;
+}
+
+.spoiler {
+	background: #bbb;
+	color: #bbb;
+}
+
+.spoiler:hover {
+	color: #333;
+}
+
+.quote {
+	color: #789922;
+}
+
+#footer {
+	clear: both;
+	padding-top: 20px;
+	font-size: 11px;
+	color: #999;
+	text-align: center;
 }
