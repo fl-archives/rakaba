@@ -4,7 +4,7 @@ Rakaba::Application.routes.draw do
   scope "/" do
     match ':alias'                    => "boards#index",    constraints: {alias: /\w+/}
     match ':alias/create'             => "threads#create",  constraints: {alias: /\w+/}
-    match ':alias/page/:page_number'  => 'boards#index',    constraints: {alias: /\w+/, page_number: /\d+/}
+    match ':alias/page/:page'         => 'boards#page',     constraints: {alias: /\w+/, page: /\d+/}
   end
   
   # Threads scope

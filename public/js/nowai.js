@@ -1,12 +1,18 @@
 // Rakaba script, copyright Nowai team 2011, GNU GPL, blah blah
 
-var form_moved = false;
+var form_moved 				= false;
+var highlighted_post 	= null;
 
 $(document).ready(function() {
 	$('#boardlist').hover(boardlist_hover, boardlist_unhover);
 	$('#thread_form').submit(submit_thread);
 	$('#reply_form').submit(submit_reply);
 	$('.post').hover(post_hover, post_unhover);
+	$('.post_link a').click(function() {
+			id = $(this).html();
+			id = id.substring(8, id.length);		
+			highlight_post(id);
+	});
 	$('#reply_form textarea').bind('keydown', 'ctrl+return', function() {
 		$(this).submit();
 	})
@@ -18,8 +24,20 @@ $(document).ready(function() {
 	$('.editbox u').click(underline);
 	$('.editbox .spoiler').click(spoiler);
 	$('.editbox a').click(link);
+
+	if (document.location.hash != '') {
+		highlight_post(document.location.hash.substring(1));
+	}
 });
 
+function highlight_post(id) {
+	post = $('#' + id);
+	post.addClass('selected');
+	if (highlighted_post != null) {
+		highlighted_post.removeClass('selected');
+	}
+	highlighted_post = post;
+}
 
 function bold() {
 	replace_shit($(this), '**', '**');
@@ -142,7 +160,6 @@ function submit_reply() {
 					thread.append(post);
 					post.after(form.parent());
 					form_moved = false;
-					$.scrollTo(post);
 				} 
 				else {
 					if (thread.find('.post').length == 3) {
@@ -156,6 +173,9 @@ function submit_reply() {
 					number += 1
 					omitted.html(number);
 				}
+				$.scrollTo(post, settings={offset:{top:-200}});
+				post.css('opacity', '0');
+				post.animate({opacity: 1}, 800)
 				$('.reply_link').unbind().click(move_reply_form);
 				$('.post').unbind().hover(post_hover, post_unhover);
 			}
@@ -204,6 +224,7 @@ function move_reply_form() {
 	else {
 		form_moved = true;
 	}
+	$.scrollTo(post, settings={offset:{top:-200}})
 	return false;
 }
 

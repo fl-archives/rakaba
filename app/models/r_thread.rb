@@ -1,7 +1,7 @@
 class RThread < ActiveRecord::Base
 	include ApplicationHelper
 	
-	has_many 		:posts, :foreign_key => :thread_id
+	has_many 		:posts, foreign_key: :thread_id
 	belongs_to 	:board
 	serialize		:file_info, Hash
 	validates_length_of :title, 	maximum: 	250
@@ -18,10 +18,13 @@ class RThread < ActiveRecord::Base
 	end
 
 	def self.get_page(page_number)
-		return RThread.order('bump DESC')
+		return RThread.where(hidden: false).order('bump DESC').paginate(
+			per_page: 	10,
+			page: 			page_number,
+		)
 	end
 
 	def replies
-		Post.where(:thread_id => self._id).to_a
+		Post.where(hidden: false, :thread_id => self._id).to_a
 	end
 end

@@ -88,9 +88,7 @@ module ApplicationHelper
     text.gsub! /__(.+?)__/,     underline('\1')
     text.gsub! /%%(.+?)%%/,     spoiler('\1')
     text.gsub! url_regexp,      link('\1', '\2')
-    @id_counter = 0
     text.gsub! /&gt;&gt;(\d+)/, post_link('\1')
-    # SOSNOOLEY
     text.gsub! /&gt_SOSNOOLEY;&gt;(\d+)/ do |idd|
       if @id_counter < 10
         @id_counter += 1
@@ -115,7 +113,7 @@ module ApplicationHelper
       end
     end
 
-    text.gsub! /^&gt;(.+)$/,    quote('\1')
+    text.gsub! /^&gt;(.+)$/,    quote('\0')
     text.gsub! /\n(\n)+/,       '<br /><br />'
     text.gsub! /\n/,            '<br />'
     text.gsub! /&lt;a href=['|"](.*?)['|"]&gt;&lt;\/a&gt;/, ''

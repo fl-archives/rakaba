@@ -1,6 +1,6 @@
 class GlagneController < ApplicationController
 	def index
-		@ids 		= Ids.first.ids
+		@ids 		= Ids.get_record.ids
 		@motd		= Motd.last
 		@boards = Board.all
 		puts @ids.inspect

@@ -8,11 +8,11 @@ class CreateRThreads < ActiveRecord::Migration
       	t.string		:title
       	t.string		:ip
       	t.integer		:_id
-      	t.integer		:replies_count, default: 0
+      	t.integer		:replies_count,   default: 0
       	t.integer		:author_id
       	t.integer		:board_id
-      	t.boolean		:hidden, default: false
-      	t.boolean		:sticky, default: false
+      	t.boolean		:hidden,          default: false
+      	t.boolean		:sticky,          default: false
       	t.datetime	:bump
         t.string    :file_file_name
         t.string    :file_content_type
@@ -21,6 +21,10 @@ class CreateRThreads < ActiveRecord::Migration
         t.text      :file_info
         t.timestamps
       end
+      add_index board, :ip,         unique: false
+      add_index board, :_id,        unique: true
+      add_index board, :author_id,  unique: false
+      add_index board, :hidden,     unique: false
     end
   end
 

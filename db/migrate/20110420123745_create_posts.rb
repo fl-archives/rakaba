@@ -9,8 +9,8 @@ class CreatePosts < ActiveRecord::Migration
       	t.integer		:_id
       	t.integer		:author_id
       	t.integer		:thread_id
-      	t.boolean		:hidden, default: false
-      	t.boolean		:sage, default: false
+      	t.boolean		:hidden,            default: false
+      	t.boolean		:sage,              default: false
         t.string    :file_file_name
         t.string    :file_content_type
         t.integer   :file_file_size
@@ -18,6 +18,12 @@ class CreatePosts < ActiveRecord::Migration
         t.text      :file_info
         t.timestamps
       end
+
+      add_index board, :ip,         unique: false
+      add_index board, :_id,        unique: true
+      add_index board, :author_id,  unique: false
+      add_index board, :thread_id,  unique: false
+      add_index board, :hidden,     unique: false
     end
   end
 

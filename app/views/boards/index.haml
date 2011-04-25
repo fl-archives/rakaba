@@ -49,3 +49,15 @@
 		-p = Post.where(thread_id: thread._id).order('created_at DESC').limit(3)
 		= render partial: 'posts/post', collection: p.reverse
 	%hr
+
+#pages
+	Страницы:
+	-if @threads.total_pages > 1
+		-(1..@threads.total_pages).each do |page|
+			-cls = nil
+			-cls = 'current' if page == @threads.current_page
+			-u = url_for controller: 'boards', alias: @board.alias, action: 'page', page: page
+			-u = url_for controller: 'boards', alias: @board.alias, action: 'index' if page == 1
+			%a{class: cls, href: u}= page
+	-else
+		%a.current{href: '.'}= 1

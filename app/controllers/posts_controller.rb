@@ -18,6 +18,9 @@ class PostsController < ApplicationController
 				return render text: t('errors.no_content')
 			else
 				post.save
+				if post.file?
+					post.file_file_name = post.file_file_name.force_encoding('utf-8')
+				end
 				thread.bump = post.created_at if not post.sage
 				thread.replies_count += 1
 				thread.save
