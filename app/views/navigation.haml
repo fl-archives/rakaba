@@ -1,5 +1,5 @@
 #title
-	%a{href: url_for(:root)}= 'Nowai.ru'
+	%a{href: url_for(:root)}= t('title').html_safe
 	-if ['boards', 'threads'].include? params[:controller]
 		&mdash; #{@board[:name]}
 %hr

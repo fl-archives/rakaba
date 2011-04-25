@@ -7,6 +7,10 @@ class CreateBoards < ActiveRecord::Migration
     	t.text		:settings
       t.timestamps
     end
+
+    INITIAL_BOARDS.each_pair do |pair|
+      Board.create alias: pair[0], name: pair[1], settings: Hash.new
+    end
   end
 
   def self.down

@@ -1,4 +1,5 @@
 ru:
+  title: "Nowai<sup>5</sup>"
   errors:
     no_picture:       "Вы забыли приложить картинку."
     no_content:       "В сообщении нет ни текста, ни картинки."

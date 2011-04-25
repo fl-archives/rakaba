@@ -19,7 +19,11 @@ class ThreadsController < ApplicationController
           thread.file_file_name = thread.file_file_name.force_encoding('utf-8')
         end
         if params[:goto] == 'thread'
-          return render text: url_for(action: 'show', id: thread._id)
+          return render text: url_for(
+            action:     'show', 
+            id:         thread._id, 
+            format:     'html'
+          )
         else
           return render text: url_for(
             controller: 'boards', 

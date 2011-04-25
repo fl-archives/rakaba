@@ -4,6 +4,8 @@ class CreateIds < ActiveRecord::Migration
     	t.text	:ids
       t.timestamps
     end
+
+    Ids.create ids: Hash.new
   end
 
   def self.down
