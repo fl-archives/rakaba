@@ -1,7 +1,7 @@
 class CreatePosts < ActiveRecord::Migration
   def self.up
-    INITIAL_BOARDS.each_key do |board|
-      board = "#{board}_posts".to_sym    
+    INITIAL_BOARDS.each do |board|
+      board = "#{board[:alias]}_posts".to_sym    
       create_table board do |t|
       	t.text			:message
       	t.string		:ip
@@ -27,6 +27,8 @@ class CreatePosts < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :posts
+    INITIAL_BOARDS.each do |board|
+      drop_table "#{board[:alias]}_posts".to_sym
+    end
   end
 end

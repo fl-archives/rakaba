@@ -1,16 +1,22 @@
 #boardlist_container
-	%table#boardlist{cellpadding: 5}
+	%table#boardlist{cellpadding: 3}
 		-@boards.each do |board|
-			-url = url_for(controller: 'boards', action: 'index', alias: board.alias, trailing_slash: true)
-			-replies = nil
-			-if @ids.ids.has_key? board.alias
-				-if @ids.ids[board.alias] > 0
-					-replies = @ids.ids[board.alias]
-			%tr.board
-				%td.board_alias= 	"/#{board.alias}/"
-				%td.mini=					replies
-				%td.board_name
-					%a{href: url}=	board.name
+			-if board.level == 0
+				-url = url_for(controller: 'boards', action: 'index', alias: board.alias, trailing_slash: true)
+				-replies = nil
+				-if @ids.ids.has_key? board.alias
+					-if @ids.ids[board.alias] > 0
+						-replies = @ids.ids[board.alias]
+				%tr.board
+					%td.board_alias= 	"/#{board.alias}/"
+					%td.mini=					replies
+					%td.board_name
+						%a{href: url}=	board.name
 	#stat
 		Всего #{@ids.total} #{verbose_replies @ids.total}
 		в #{@boards.length} разделах.
+		-if $registration
+			%br
+			Хотите больше разделов?
+			%a{href: '#register'} Зарегистрируйтесь!
+	

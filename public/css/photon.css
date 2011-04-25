@@ -304,9 +304,10 @@ blockquote {
 }
 
 .board_alias {
-	color: #999;
+	color: #aaa;
 	font-weight: bold;
 	font-size: 30px;
+	width: 80px;
 }
 
 .board_name {
@@ -320,6 +321,7 @@ blockquote {
 .board td.mini {
 	color: #888;
 	opacity: 0;
+	text-align: center;
 }
 
 
@@ -406,9 +408,10 @@ blockquote {
 }
 
 #stat {
-	font-size: 13px;
+	margin-top: 20px;
+	font-size: 11px;
 	display: table;
-	color: #999;
+	color: #666;
 }
 
 #boardlist_container {
@@ -432,3 +435,4 @@ blockquote {
 #not_found span {
 	color: #666;
 }
+

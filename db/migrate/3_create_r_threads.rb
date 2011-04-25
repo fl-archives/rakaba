@@ -1,7 +1,7 @@
 class CreateRThreads < ActiveRecord::Migration
   def self.up
-    INITIAL_BOARDS.each_key do |board|
-      board = "#{board}_threads".to_sym
+    INITIAL_BOARDS.each do |board|
+      board = "#{board[:alias]}_threads".to_sym
       create_table board do |t|
       	t.text			:message
       	t.string		:title
@@ -28,8 +28,8 @@ class CreateRThreads < ActiveRecord::Migration
   end
 
   def self.down
-    INITIAL_BOARDS.each_key do |board|
-      drop_table "#{board}_threads".to_sym
+    INITIAL_BOARDS.each do |board|
+      drop_table "#{board[:alias]}_threads".to_sym
     end
   end
 end
