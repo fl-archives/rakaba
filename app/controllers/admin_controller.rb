@@ -17,7 +17,16 @@ class AdminController < ApplicationController
 	end
 
 	def motd
-		# change message of the day
+		if request.post?
+			params[:motd].merge!({
+				user_id: 1 #placeholder
+			})
+			motd = Motd.create params[:motd]
+			redirect_to controller: 'glagne', action: 'index'
+		else
+			# this will show all motds in future
+			return not_found
+		end
 	end
 
 	private

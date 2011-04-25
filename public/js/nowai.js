@@ -4,6 +4,7 @@ var form_moved 				= false;
 var highlighted_post 	= null;
 
 $(document).ready(function() {
+	$('#motd_button').click(show_motd_form);
 	$('#boardlist').hover(boardlist_hover, boardlist_unhover);
 	$('#thread_form').submit(submit_thread);
 	$('#reply_form').submit(submit_reply);
@@ -18,6 +19,7 @@ $(document).ready(function() {
 	})
 	$('.reply_link').click(move_reply_form);
 	$('.delete_link').click(delete_post);
+
 	// ололо я идиот
 	$('.editbox b').click(bold);
 	$('.editbox i').click(italic);
@@ -29,6 +31,12 @@ $(document).ready(function() {
 		highlight_post(document.location.hash.substring(1));
 	}
 });
+
+function show_motd_form() {
+	$('#motd_form').css('display', 'block');
+	$('#motd').css('display', 'none');
+	return false;
+}
 
 function highlight_post(id) {
 	post = $('#' + id);

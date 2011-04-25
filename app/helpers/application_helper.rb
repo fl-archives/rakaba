@@ -78,6 +78,7 @@ module ApplicationHelper
       "<span class='quote'>#{text}</span>"
     end
 
+    puts text.inspect
     url_regexp = /&lt;a.*href=['|"](.+?)['|"].*&gt;(.+?)&lt;\/a&gt;/
     text.strip!
     text.gsub! '&', '&amp;'
@@ -113,10 +114,18 @@ module ApplicationHelper
       end
     end
 
-    text.gsub! /^&gt;(.+)$/,    quote('\0')
-    text.gsub! /\n(\n)+/,       '<br /><br />'
-    text.gsub! /\n/,            '<br />'
-    text.gsub! /&lt;a href=['|"](.*?)['|"]&gt;&lt;\/a&gt;/, ''
+    text.gsub! /^&gt;(.+)$/,  quote('\0')
+    text.gsub! /\r\n(\r\n)+/, '<br /><br />'
+    text.gsub! /\r\n/,        '<br />'
+    return text
+  end
+
+  def parse_back text
+    text.gsub! '<br />',    "\n"
+    text.gsub! /<\/*?b>/,   '**'
+    text.gsub! /<\/*?i>/,   '*'
+    text.gsub! /<\/*?u>/,   '__'
+    text.gsub! /<\/*?span( class='spoiler')*?>/,   '%%'
     return text
   end
 end

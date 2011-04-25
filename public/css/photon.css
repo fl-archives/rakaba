@@ -387,3 +387,21 @@ blockquote {
 	text-decoration: none;
 	color: black;
 }
+
+#motd {
+	
+}
+
+#motd_form {
+	display: none;
+}
+
+#motd_form textarea {
+	width: 100%;
+	height: 200px;
+}
+
+#motd_button {
+	float: right;
+	font-size: 13px;
+}
