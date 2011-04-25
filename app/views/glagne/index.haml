@@ -1,15 +1,4 @@
-%table#boardlist{cellpadding: 5}
-	-@boards.each do |board|
-		-url = url_for(controller: 'boards', action: 'index', alias: board.alias, trailing_slash: true)
-		-if @ids.has_key? board.alias
-			-replies = @ids[board.alias]
-		-else
-			-replies = 0	
-		%tr.board
-			%td.board_alias= 	"/#{board.alias}/"
-			%td.mini=					replies
-			%td.board_name
-				%a{href: url}=	board.name
+= render template: 'boardlist'
 #infoblock
 	%blockquote#motd
 		-if @motd
@@ -23,5 +12,6 @@
 		= render template: 'editbox'
 		= f.text_area :message, value: text
 		= f.submit 'сохранить'
+		
 
 

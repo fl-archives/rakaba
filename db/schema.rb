@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(:version => 6) do
 
   create_table "ids", :force => true do |t|
     t.text     "ids"
+    t.integer  "total"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

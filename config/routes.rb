@@ -15,9 +15,13 @@ Rakaba::Application.routes.draw do
   end
 
   scope '/admin/' do 
-    match 'post/:id'  => 'admin#post', constraints: {id: /\d+/}
-    match 'logs'      => 'admin#logs'
-    match 'motd'      => 'admin#motd'
+    match 'post/:alias/:id'   => 'posts#update',   constraints: {id: /\d+/, alias: /\w+/}
+    match 'thread/:alias/:id' => 'threads#update', constraints: {id: /\d+/, alias: /\w+/}
+    match 'boards/:alias'     => 'boards#update',  constraints: {alias: /\w+/}
+    match 'boards/create'     => 'boards#create'
+    match 'boards'            => 'admin#boards'
+    match 'logs'              => 'admin#logs'
+    match 'motd'              => 'admin#motd'
   end
 
   match '*path' => 'application#not_found_hack'

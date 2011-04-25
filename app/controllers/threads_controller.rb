@@ -5,7 +5,7 @@ class ThreadsController < ApplicationController
     return not_found if not request.post?
     params[:r_thread].merge!({
       ip:         request.remote_ip,
-      _id:        Ids.get_id(@board[:alias]),
+      _id:        get_next_id,
       bump:       Time.now,
       board_id:   @board.id,
       file_info:  Hash.new,
@@ -15,6 +15,7 @@ class ThreadsController < ApplicationController
     if thread.valid?
       if thread.file?
         thread.save
+        confirm_id
         if thread.file?
           thread.file_file_name = thread.file_file_name.force_encoding('utf-8')
         end
@@ -28,7 +29,7 @@ class ThreadsController < ApplicationController
           return render text: url_for(
             controller: 'boards', 
             action:     'index', 
-            alias:      @board[:alias]
+            alias:      @board.alias
           )
         end
       else
@@ -41,9 +42,11 @@ class ThreadsController < ApplicationController
 
   def show
     @thread = RThread.find_by__id params[:id].to_i
+    return not_found if not @thread
   end
 
   def update
-    return not_found if not request.post?
+    admin_only
+    # i fuck dogs
   end
 end

@@ -18,4 +18,9 @@ class BoardsController < ApplicationController
 			end
 		end
 	end
+
+	def create
+		admin_only
+		# board creation logic
+	end
 end

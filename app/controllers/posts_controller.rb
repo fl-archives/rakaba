@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 		end
 		params[:post].merge!({
 			ip: 				request.remote_ip,
-			_id: 				Ids.get_id(@board[:alias]),
+			_id: 				get_next_id,
 			thread_id: 	thread._id,
 			file_info: 	Hash.new,
 		})
@@ -18,6 +18,7 @@ class PostsController < ApplicationController
 				return render text: t('errors.no_content')
 			else
 				post.save
+				confirm_id
 				if post.file?
 					post.file_file_name = post.file_file_name.force_encoding('utf-8')
 				end
@@ -27,6 +28,7 @@ class PostsController < ApplicationController
 				url = url_for(
 					controller: 'threads', 
 					action: 		'show',
+					format: 		'html',
 					id: 				thread._id,
 					anchor: 		post._id
 				)
@@ -50,7 +52,8 @@ class PostsController < ApplicationController
 	end
 
 	def update
-		return not_found if not request.post?
+		admin_only
+		# post administration logic
 	end
 
 	def delete
