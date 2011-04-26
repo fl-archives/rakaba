@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  include ApplicationHelper
 
   def not_found_hack
   	return not_found
@@ -42,5 +43,52 @@ class ApplicationController < ActionController::Base
   def admin_only
     # placeholder
     return not_found if not true
+  end
+
+  def parse(text)
+    text.strip!
+    puts text.inspect
+    text.gsub!('&', '&amp;')
+    text.gsub!('<', '&lt;') 
+    text.gsub! '>', '&gt;'
+    text.gsub! /\*\*(.+?)\*\*/, bold('\1')
+    text.gsub! /\*(.+?)\*/,     italic('1')
+    text.gsub! /__(.+?)__/,     underline('\1')
+    text.gsub! /%%(.+?)%%/,     spoiler('\1')
+    text.gsub! /\r\n(\r\n)+/,   '<br /><br />'
+    text.gsub! /\r\n/,          '<br />'
+    @id_counter = 0
+    text.gsub! /&gt;&gt;(\d+)/ do |idd|    
+      if @id_counter < 10
+        @id_counter += 1
+        id      = idd[8..idd.length].to_i
+        post    = Post.find_by__id id
+        thread  = RThread.find_by__id(id) if not post
+        if post
+          thread_id = post.thread_id
+          anchor    = post._id
+        elsif thread
+          thread_id = thread._id
+          anchor    = nil
+        end
+        if post or thread
+          u = url_for(
+            format:     'html',
+            controller: 'threads', 
+            action:     'show',
+            alias:      @board.alias,
+            id:         thread_id,
+            anchor:     anchor
+          )
+          "<div class='post_link'><a href='#{u}'>#{idd}</a></div>"
+        else
+          idd
+        end         
+      else
+        idd
+      end
+    end
+    text.gsub! /^&gt;(.+)$/,    quote('\0')
+    text
   end
 end

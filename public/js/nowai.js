@@ -18,22 +18,25 @@ $(document).ready(function() {
 		$(this).submit();
 	})
 	$('.reply_link').click(move_reply_form);
-	$('.delete_link').click(delete_post);
+	$('.delete_link').click(show_delete_menu);
 
 	// ололо я идиот
 	$('.editbox b').click(bold);
 	$('.editbox i').click(italic);
 	$('.editbox u').click(underline);
 	$('.editbox .spoiler').click(spoiler);
-	$('.editbox a').click(link);
 
 	if (document.location.hash != '') {
 		highlight_post(document.location.hash.substring(1));
 	}
 });
 
+function show_delete_menu() {
+
+}
+
 function show_motd_form() {
-	$('#motd_form').css('display', 'block');
+	$('#motd_form').css('display', 'block').find('textarea').focus();
 	$('#motd').css('display', 'none');
 	return false;
 }

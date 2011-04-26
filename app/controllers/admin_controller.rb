@@ -17,6 +17,7 @@ class AdminController < ApplicationController
 				user_id: 1 #placeholder
 			})
 			motd = Motd.create params[:motd]
+			motd.message = parse motd.message
 			redirect_to controller: 'glagne', action: 'index'
 		else
 			# this will show all motds in future

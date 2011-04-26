@@ -49,35 +49,28 @@ module ApplicationHelper
     end
   end
 
-  def parse text
-    def bold text
+  
+  def bold text
       "<b>#{text}</b>"
-    end
+  end
 
-    def italic text
-      "<i>#{text}</i>"
-    end
+  def italic text
+    "<i>#{text}</i>"
+  end
 
-    def underline text
-      "<u>#{text}</u>"
-    end
+  def underline text
+    "<u>#{text}</u>"
+  end
 
-    def spoiler text
-      "<span class='spoiler'>#{text}</span>"
-    end
+  def spoiler text
+    "<span class='spoiler'>#{text}</span>"
+  end
 
-    def link href, text 
-      "<a href='#{href}'>#{text}</a>"
-    end
-
-    def post_link id
-      "<div class='post_link'><a href='##{id}'>&gt;&gt;#{id}</a></div>"
-    end
-
-    def quote text
-      "<span class='quote'>#{text}</span>"
-    end
-
+  def quote text
+    "<span class='quote'>#{text}</span>"
+  end
+  
+  def parse_old text
     puts text.inspect
     url_regexp = /&lt;a.*href=['|"](.+?)['|"].*&gt;(.+?)&lt;\/a&gt;/
     text.strip!

@@ -17,6 +17,7 @@ class PostsController < ApplicationController
 			if post.message.empty? and not post.file?
 				return render text: t('errors.no_content')
 			else
+				post.message = parse post.message
 				post.save
 				confirm_id
 				if post.file?

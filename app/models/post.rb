@@ -9,8 +9,4 @@ class Post < ActiveRecord::Base
 		Post.table_name = board_alias + '_posts' 
 		return Post.table_exists?
 	end
-
-	before_create do 
-		self.message = parse self.message
-	end
 end

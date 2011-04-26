@@ -8,10 +8,6 @@ class RThread < ActiveRecord::Base
 	validates_length_of :message,	maximum: 	3000
 	has_attached_file		:file, 		styles: {thumb: "200x200>"}
 
-	before_create do 
-		self.message 	= parse self.message
-	end
-
 	def self.use_board(board_alias)
 		RThread.table_name = board_alias + '_threads' 
 		return RThread.table_exists?

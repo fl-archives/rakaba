@@ -14,6 +14,7 @@ class ThreadsController < ApplicationController
     thread = RThread.new params[:r_thread]
     if thread.valid?
       if thread.file?
+        thread.message = parse thread.message
         thread.save
         confirm_id
         if thread.file?
