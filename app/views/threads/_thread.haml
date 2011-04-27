@@ -1,6 +1,6 @@
--url = url_for controller: 'threads', action: 'show', id: thread._id, format: 'html'
+-url = url_for controller: 'threads', action: 'show', id: thread.rid, format: 'html'
 
-.thread{id: thread._id}
+.thread{id: thread.rid}
 	-if thread.file?
 		%span.file_info
 			Файл:&nbsp;
@@ -15,7 +15,7 @@
 		-if not thread.title.empty?
 			.title= thread.title
 		= verbose_date thread.created_at
-		%a.reply_link{href: url}= "No.#{thread._id}"
+		%a.reply_link{href: url}= "No.#{thread.rid}"
 		-if params[:action] != 'show'
 			[&nbsp;
 			%a{href: url}<> Открыть тред

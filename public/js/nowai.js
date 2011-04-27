@@ -2,6 +2,7 @@
 
 var form_moved 				= false;
 var highlighted_post 	= null;
+var login 						= false;
 
 $(document).ready(function() {
 	$('#motd_button').click(show_motd_form);
@@ -19,6 +20,8 @@ $(document).ready(function() {
 	})
 	$('.reply_link').click(move_reply_form);
 	$('.delete_link').click(show_delete_menu);
+	$('#login_button').click(toggle_login_form);
+	$('#login_box form').submit(submit_login);
 
 	// ололо я идиот
 	$('.editbox b').click(bold);
@@ -30,6 +33,42 @@ $(document).ready(function() {
 		highlight_post(document.location.hash.substring(1));
 	}
 });
+
+function toggle_login_form() {
+	box = $('#login_box');
+	if (login) {
+		box.css('display', 'none');
+		login = false;
+	}
+	else {
+		login = true;
+		box.css('display', 'table');
+		box.find('input[type=password]').focus();
+	}
+	return false;
+}
+
+function submit_login() {
+	form = $(this);
+	errors = form.find('.errors');
+	form.ajaxSubmit({
+		beforeSubmit: blur_form(form),
+		success: function(reply) {
+			if (reply.substring(0, 2) == 'ht') {
+				window.location = reply;
+			}
+			else {
+				unblur_form(form);
+				errors.html(reply);
+			}
+		},
+		error: function() {
+			unblur_form(form);
+			alert_error();
+		}
+	});
+	return false;
+}
 
 function show_delete_menu() {
 

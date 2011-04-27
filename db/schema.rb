@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(:version => 91) do
   create_table "posts", :force => true do |t|
     t.text     "message"
     t.string   "board"
-    t.integer  "_id"
+    t.integer  "rid"
     t.integer  "user_id"
     t.integer  "ip_id"
     t.integer  "r_thread_id"
@@ -84,10 +84,10 @@ ActiveRecord::Schema.define(:version => 91) do
     t.datetime "updated_at"
   end
 
-  add_index "posts", ["_id", "board"], :name => "index_posts_on__id_and_board", :unique => true
   add_index "posts", ["board"], :name => "index_posts_on_board"
   add_index "posts", ["ip_id"], :name => "index_posts_on_ip_id"
   add_index "posts", ["r_thread_id"], :name => "index_posts_on_r_thread_id"
+  add_index "posts", ["rid", "board"], :name => "index_posts_on_rid_and_board", :unique => true
   add_index "posts", ["thread_id"], :name => "index_posts_on_thread_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(:version => 91) do
     t.text     "message"
     t.string   "title"
     t.string   "board"
-    t.integer  "_id"
+    t.integer  "rid"
     t.integer  "replies_count",     :default => 0
     t.integer  "user_id"
     t.integer  "ip_id"
@@ -111,9 +111,9 @@ ActiveRecord::Schema.define(:version => 91) do
     t.datetime "updated_at"
   end
 
-  add_index "r_threads", ["_id", "board"], :name => "index_r_threads_on__id_and_board", :unique => true
   add_index "r_threads", ["board"], :name => "index_r_threads_on_board"
   add_index "r_threads", ["ip_id"], :name => "index_r_threads_on_ip_id"
+  add_index "r_threads", ["rid", "board"], :name => "index_r_threads_on_rid_and_board", :unique => true
   add_index "r_threads", ["user_id"], :name => "index_r_threads_on_user_id"
 
   create_table "sessions", :force => true do |t|
@@ -130,9 +130,7 @@ ActiveRecord::Schema.define(:version => 91) do
     t.text     "seen"
     t.string   "password"
     t.integer  "ban_id"
-    t.integer  "level",       :default => 1
-    t.datetime "last_post"
-    t.datetime "last_thread"
+    t.integer  "level",      :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end

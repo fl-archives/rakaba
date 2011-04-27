@@ -1,7 +1,7 @@
 %script{type: 'text/javascript'}="var current_location = 'board';"
 
 #thread_form_container
-	-form_for RThread.new, url: url_for(controller: 'threads', action: 'create', alias: @board[:alias]), html: {id: 'thread_form', method: 'post', multipart: true} do |f|
+	=form_for RThread.new, url: url_for(controller: 'threads', action: 'create', alias: @board[:alias]), html: {id: 'thread_form', method: 'post', multipart: true} do |f|
 		%table
 			%tr
 				.errors

@@ -1,15 +1,13 @@
 class AuthController < ApplicationController
 	def login
 		for_anonymous
-		if request.post?
-			password 	= Digest::MD5.hexdigest(SALT + params[:user][:password])
-			user 			= User.find_by_password(password)
-			if user
-				set_session(user.id)
-				return render(text: url_for(:root))
-			else
-				return render(text: t('error.wrong_password'))
-			end
+		return not_found if not request.post?
+		password 	= Digest::MD5.hexdigest(SALT + params[:user][:password])
+		user 			= User.find_by_password(password)
+		if user
+			return render(text: root_url)
+		else
+			return render(text: t('error.wrong_password'))
 		end
 	end
 

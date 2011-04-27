@@ -25,7 +25,7 @@ class ThreadsController < ApplicationController
           action_suffix:  "#{@board_alias}_front_page"
         )
         if params[:goto] == 'thread'
-          return render(text: thread_url(thread._id))
+          return render(text: thread_url(thread.rid))
         else
           return render(text: board_url)
         end
@@ -39,7 +39,7 @@ class ThreadsController < ApplicationController
   end
 
   def show
-    @thread = RThread.find_by__id(params[:id].to_i)
+    @thread = RThread.get(params[:id].to_i, @board.alias)
     return not_found if not @thread
   end
 

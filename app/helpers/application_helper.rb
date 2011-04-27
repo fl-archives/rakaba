@@ -53,7 +53,6 @@ module ApplicationHelper
     end
   end
 
-  
   def bold text
       "<b>#{text}</b>"
   end
@@ -71,7 +70,7 @@ module ApplicationHelper
   end
 
   def quote text
-    "<span class='quote'>#{text}</span>"
+    "<span class='quote'>&gt; #{text.strip}</span><br />"
   end
 
   def parse_back(text)

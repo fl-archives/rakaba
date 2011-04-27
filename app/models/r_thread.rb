@@ -10,7 +10,11 @@ class RThread < ActiveRecord::Base
 	before_create do 
 		self.bump 			= Time.now
 		self.file_info	= Hash.new
-		self._id				= Ids.get_next_id(self.board)
+		self.rid				= Ids.get_next_id(self.board)
+	end
+
+	def self.get(rid, board)
+		return RThread.where(rid: rid, board: board).first
 	end
 
 	def self.get_page(page_number, board_alias)

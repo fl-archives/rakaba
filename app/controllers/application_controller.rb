@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate
+    puts request.inspect
     @user   = 'anonymous'
     @level  = 1
     if cookies.include?('rakaba_session')
@@ -83,20 +84,18 @@ class ApplicationController < ActionController::Base
     text.gsub! /\*(.+?)\*/,     italic('\1')
     text.gsub! /__(.+?)__/,     underline('\1')
     text.gsub! /%%(.+?)%%/,     spoiler('\1')
-    text.gsub! /\r\n(\r\n)+/,   '<br /><br />'
-    text.gsub! /\r\n/,          '<br />'
     @id_counter = 0
     text.gsub! /&gt;&gt;(\d+)/ do |idd|    
       if @id_counter < 10
         @id_counter += 1
         id      = idd[8..idd.length].to_i
-        post    = Post.find_by__id id
-        thread  = RThread.find_by__id(id) if not post
+        post    = Post.get(id, @board.alias)
+        thread  = RThread.get(id, @board.alias) if not post
         if post
           thread_id = post.thread_id
-          anchor    = post._id
+          anchor    = post.rid
         elsif thread
-          thread_id = thread._id
+          thread_id = thread.rid
           anchor    = nil
         end
         if post or thread
@@ -109,7 +108,9 @@ class ApplicationController < ActionController::Base
         idd
       end
     end
-    text.gsub! /^&gt;(.+)$/,    quote('\0')
+    text.gsub! /^&gt;(.+)$/,    quote('\1')
+    text.gsub! /\r\n(\r\n)+/,   '<br /><br />'
+    text.gsub! /\r\n/,          '<br />'
     text
   end
 

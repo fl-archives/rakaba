@@ -4,7 +4,7 @@ class CreateRThreads < ActiveRecord::Migration
       t.text      :message
       t.string    :title
       t.string    :board
-      t.integer   :_id
+      t.integer   :rid
       t.integer   :replies_count,   default: 0
       t.integer   :user_id
       t.integer   :ip_id
@@ -19,7 +19,7 @@ class CreateRThreads < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :r_threads, [:_id, :board], unique: true
+    add_index :r_threads, [:rid, :board], unique: true
     add_index :r_threads, :ip_id
     add_index :r_threads, :board
     add_index :r_threads, :user_id

@@ -3,7 +3,7 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
     	t.text			:message
       t.string    :board
-    	t.integer		:_id
+    	t.integer		:rid
     	t.integer		:user_id
       t.integer   :ip_id
       t.integer   :r_thread_id
@@ -18,7 +18,7 @@ class CreatePosts < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :posts, [:_id, :board], unique: true
+    add_index :posts, [:rid, :board], unique: true
     add_index :posts, :ip_id
     add_index :posts, :board
     add_index :posts, :user_id

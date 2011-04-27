@@ -20,9 +20,9 @@ INITIAL_BOARDS = [
 ]
 $registration = true
 
-Haml::Template.options[:format] = :xhtml
-Haml::Template.options[:ugly] 	= true
-
+Haml::Template.options[:format]			= :xhtml
+Haml::Template.options[:ugly] 			= true
+ActionController::Base.cache_store 	= :memory_store
 
 # Initialize the rails application
 Rakaba::Application.initialize!

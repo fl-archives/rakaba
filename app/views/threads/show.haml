@@ -1,7 +1,7 @@
 %script{type: 'text/javascript'}="var current_location = 'thread';"
 %a.goback{href: url_for(controller: 'boards', action: 'index', alias: @board[:alias], trailing_slash: true)} ← назад
 .thread_container
-	-cache(action: 'show', action_suffix: "#{@board.alias}_#{@thread._id}") do
+	-cache(action: 'show', action_suffix: "#{@board.alias}_#{@thread.rid}") do
 		= render partial: 'threads/thread', object: 		@thread
 		= render partial: 'posts/post',			collection: @thread.replies
 	= render template: 'reply_form'

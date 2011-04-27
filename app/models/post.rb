@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
 
 	before_create do
 		self.file_info 	= Hash.new
-		self._id				= Ids.get_next_id(self.board)
+		self.rid				= Ids.get_next_id(self.board)
 	end
 
 	def self.use_board(board_alias)
@@ -16,5 +16,9 @@ class Post < ActiveRecord::Base
 
 	def self.current_board
 		return Post.table_name.gsub('_posts', '')
+	end
+
+	def self.get(id, board)
+		return Post.where(rid: id, board: board).first
 	end
 end

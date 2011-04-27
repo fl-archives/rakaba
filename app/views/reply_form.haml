@@ -1,5 +1,5 @@
 -if params[:controller] == 'threads' and params[:action] == 'show'
-  -url = url_for(controller: 'posts', action: 'create', alias: @board[:alias], id: @thread._id)
+  -url = url_for(controller: 'posts', action: 'create', alias: @board[:alias], id: @thread.rid)
   -style  = nil
   -frm    = 'thread'
 -else
@@ -8,7 +8,7 @@
   -frm    = 'board'
   
 #reply_form_container{style: style}
-  -form_for Post.new, url: url, html: {id: 'reply_form', method: 'post', multipart: true} do |f|
+  = form_for Post.new, url: url, html: {id: 'reply_form', method: 'post', multipart: true} do |f|
     %table
       %tr
         %td

@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
 	def create
 		return not_found if not request.post?
-		if not thread = RThread.find_by__id(params[:id].to_i)
+		if not thread = RThread.get(params[:id].to_i, @board.alias)
 			return render(text: t('errors.thread_not_found'))
 		end
 		permission = get_write_permission
@@ -15,12 +15,12 @@ class PostsController < ApplicationController
 			params[:post][:ip_id] = @ip.id
 			if @ip.last_post
 				delta = (Time.now - @ip.last_post).to_i
-				if delta < 10
+				if delta < 1
 					return render(text: t('error.too_fast'))
 				end
 			end
 		end
-		params[:post][:thread_id] = thread._id
+		params[:post][:thread_id] = thread.rid
 		params[:post][:r_thread_id] = thread.id
 		params[:post][:user_id] = @user.id if not anonymous?
 		params[:post][:board] = @board.alias
@@ -35,16 +35,13 @@ class PostsController < ApplicationController
 				expire_fragment(
 					controller: 		'threads',
 					action: 				'show',
-					action_suffix: 	"#{@board.alias}_#{thread._id}"
+					action_suffix: 	"#{@board.alias}_#{thread.rid}"
 				)
 				expire_fragment(
 					controller: 		'boards',
 					action: 				'index',
 					action_suffix: 	"#{@board.alias}_front_page"
 				)
-				if not anonymous?
-					@user.last_post = post.created_at
-				end
 				if @level == 1 
 					@ip.last_post = post.created_at
 				end
@@ -54,7 +51,7 @@ class PostsController < ApplicationController
 				thread.bump = post.created_at if not post.sage
 				thread.replies_count += 1
 				thread.save
-				url = thread_url(thread._id, post._id)
+				url = thread_url(thread.rid, post.rid)
 				if params[:goto] == 'thread'
 					if params[:from] == 'board'
 						return render(text: url)

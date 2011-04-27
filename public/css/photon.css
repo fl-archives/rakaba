@@ -473,3 +473,14 @@ blockquote {
 	padding: 3px;
 	width: 100%;
 }
+
+#login_box {
+	padding: 4px;
+	display: none;
+	float: right;
+	background: #ddd;
+}
+
+#login_box .errors {
+	font-size: 13px;
+}

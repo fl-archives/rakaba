@@ -6,8 +6,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :password
       t.integer   :ban_id
       t.integer   :level,     default: 1
-      t.datetime  :last_post
-      t.datetime  :last_thread
       t.timestamps
     end
 
