@@ -15,6 +15,8 @@
 	%span.mini
 		= verbose_date post.created_at
 		%a.reply_link{href: url}= "No.#{post._id}"
-		%a.delete_link{href: "#delete_#{post._id}"}="x"
+		-if not anonymous?
+			-if @user.id == post.user_id or @level > 2
+				%a.delete_link{href: "#delete_#{post._id}"}="x"
 	%blockquote= post.message.html_safe
 

@@ -5,6 +5,8 @@ Rakaba::Application.routes.draw do
   match 'logout'    => 'auth#logout'
   match 'register'  => 'auth#register'
 
+  match 'banned'    => 'application#banned'
+
   scope '/about/' do
     match 'anonymity'       => 'about#anonymity'
     match 'closed-boards'   => 'about#closed_boards'

@@ -1,8 +1,8 @@
 class BoardsController < ApplicationController
-	before_filter :change_board	
+	before_filter :check_board	
 	
 	def index
-		@threads = RThread.get_page(1)
+		@threads = RThread.get_page(1, @board.alias)
 	end
 
 	def page 
@@ -10,7 +10,7 @@ class BoardsController < ApplicationController
 		if [0, 1].include?(page)
 			return redirect_to(action: 'index', trailing_slash: true)
 		else
-			@threads = RThread.get_page(page)
+			@threads = RThread.get_page(page, @board.alias)
 			if @threads.empty?
 				return not_found
 			else

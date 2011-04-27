@@ -36,28 +36,29 @@
 	%br
 = render template: 'reply_form'
 
--@threads.each do |thread|
-	.thread_container
-		= render partial: 'threads/thread', object: thread
-		-if thread.replies_count > 3
-			%span.mini.omitted 
-				-replies = thread.replies_count - 3
-				Пропущено
-				%span= replies
-				= "#{verbose_replies replies}."
-				Нажмите «Открыть тред», чтобы увидеть всё целиком.
-		-p = Post.where(thread_id: thread._id).order('created_at DESC').limit(3)
-		= render partial: 'posts/post', collection: p.reverse
-	%hr
+-cache(action: 'index', action_suffix: "#{@board.alias}_front_page") do
 
-#pages
-	Страницы:
-	-if @threads.total_pages > 1
-		-(1..@threads.total_pages).each do |page|
-			-cls = nil
-			-cls = 'current' if page == @threads.current_page
-			-u = url_for controller: 'boards', alias: @board.alias, action: 'page', page: page
-			-u = url_for controller: 'boards', alias: @board.alias, action: 'index' if page == 1
-			%a{class: cls, href: u}= page
-	-else
-		%a.current{href: '.'}= 1
+	-@threads.each do |thread|
+		.thread_container
+			= render partial: 'threads/thread', object: thread
+			-if thread.replies_count > 3
+				%span.mini.omitted 
+					-replies = thread.replies_count - 3
+					Пропущено
+					%b= replies
+					= "#{verbose_replies replies}."
+					Нажмите «Открыть тред», чтобы увидеть всё целиком.
+			= render partial: 'posts/post', collection: thread.last_replies(3)
+		%hr
+
+	#pages
+		Страницы:
+		-if @threads.total_pages > 1
+			-(1..@threads.total_pages).each do |page|
+				-cls = nil
+				-cls = 'current' if page == @threads.current_page
+				-u = url_for controller: 'boards', alias: @board.alias, action: 'page', page: page
+				-u = url_for controller: 'boards', alias: @board.alias, action: 'index' if page == 1
+				%a{class: cls, href: u}= page
+		-else
+			%a.current{href: '.'}= 1

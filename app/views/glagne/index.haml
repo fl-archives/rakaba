@@ -3,7 +3,7 @@
 	%blockquote#motd
 		-if m = Motd.last
 			= m.message.html_safe
-			-text = parse_back m.message
+			-text = parse_back m.message.html_safe
 		-else
 			Тут пока что никто ничего не написал.
 			-text = ''

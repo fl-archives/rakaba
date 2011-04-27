@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
 
 	before_create do
 		self.file_info 	= Hash.new
-		self._id				= Ids.get_next_id(Post.current_board)
+		self._id				= Ids.get_next_id(self.board)
 	end
 
 	def self.use_board(board_alias)

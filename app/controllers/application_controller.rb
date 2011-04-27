@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_filter :authenticate
+  after_filter  :save_changes
   protect_from_forgery
   include ApplicationHelper
 
@@ -7,7 +8,27 @@ class ApplicationController < ActionController::Base
   	return not_found
   end
 
+  def banned
+  end
+
   private
+  def get_write_permission
+    url = url_for(controller: 'application', action: 'banned')
+    if @level > 1
+      if @user.ban
+        return url
+      else
+        return true
+      end
+    else
+      if Ip.get(request.remote_ip).ban
+        return url
+      else
+        return true
+      end
+    end
+  end
+
   def anonymous?
     @user == 'anonymous'
   end
@@ -35,22 +56,17 @@ class ApplicationController < ActionController::Base
   	return render(template: 'not_found')
   end
 
-  def change_board
-  	if params[:alias]
-      al = params[:alias]
-	  	if RThread.use_board(al)
-        if @board = Board.find_by_alias(al)
-          if @level < @board.level 
-            redirect_to(:root)
-          end
-	  		  Post.use_board(al)
-        else
-          return not_found
+  def check_board
+    if params[:alias]
+      board = params[:alias]
+      if @board = Board.find_by_alias(board)
+        if @level < @board.level
+          return redirect_to(:root)
         end
-	  	else
-	  		return not_found
-	  	end
-	  end
+      else
+        return not_found
+      end
+    end
   end
 
   def admin_only
@@ -64,7 +80,7 @@ class ApplicationController < ActionController::Base
     text.gsub!('<', '&lt;') 
     text.gsub! '>', '&gt;'
     text.gsub! /\*\*(.+?)\*\*/, bold('\1')
-    text.gsub! /\*(.+?)\*/,     italic('1')
+    text.gsub! /\*(.+?)\*/,     italic('\1')
     text.gsub! /__(.+?)__/,     underline('\1')
     text.gsub! /%%(.+?)%%/,     spoiler('\1')
     text.gsub! /\r\n(\r\n)+/,   '<br /><br />'
@@ -115,5 +131,14 @@ class ApplicationController < ActionController::Base
       action:     'index',
       trailing_slash: true
     )
+  end
+
+  def save_changes
+    if not anonymous?
+      @user.save if @user.changed?
+    end
+    if @ip
+      @ip.save if @ip.changed?
+    end
   end
 end

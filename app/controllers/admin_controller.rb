@@ -14,8 +14,8 @@ class AdminController < ApplicationController
 		admin_only
 		if request.post?
 			params[:motd][:user_id] = @user.id
+			params[:motd][:message] = parse(params[:motd][:message])
 			motd = Motd.create(params[:motd])
-			motd.message = parse(motd.message)
 			redirect_to(controller: 'glagne', action: 'index')
 		else
 			# this will show all motds in future

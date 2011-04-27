@@ -1,29 +1,29 @@
 class CreatePosts < ActiveRecord::Migration
   def self.up
-    INITIAL_BOARDS.each do |board|
-      board = "#{board[:alias]}_posts".to_sym    
-      create_table board do |t|
-      	t.text			:message
-      	t.integer		:_id
-      	t.integer		:user_id
-        t.integer   :ip_id
-      	t.integer		:thread_id
-      	t.boolean		:hidden,            default: false
-      	t.boolean		:sage,              default: false
-        t.string    :file_file_name
-        t.string    :file_content_type
-        t.integer   :file_file_size
-        t.datetime  :file_updated_at
-        t.text      :file_info
-        t.timestamps
-      end
-
-      add_index board, :ip_id,      unique: false
-      add_index board, :_id,        unique: true
-      add_index board, :user_id,    unique: false
-      add_index board, :thread_id,  unique: false
-      add_index board, :hidden,     unique: false
+    create_table :posts do |t|
+    	t.text			:message
+      t.string    :board
+    	t.integer		:_id
+    	t.integer		:user_id
+      t.integer   :ip_id
+      t.integer   :r_thread_id
+    	t.integer		:thread_id
+    	t.boolean		:hidden,            default: false
+    	t.boolean		:sage,              default: false
+      t.string    :file_file_name
+      t.string    :file_content_type
+      t.integer   :file_file_size
+      t.datetime  :file_updated_at
+      t.text      :file_info
+      t.timestamps
     end
+
+    add_index :posts, [:_id, :board], unique: true
+    add_index :posts, :ip_id
+    add_index :posts, :board
+    add_index :posts, :user_id
+    add_index :posts, :r_thread_id
+    add_index :posts, :thread_id
   end
 
   def self.down

@@ -19,53 +19,6 @@ ActiveRecord::Schema.define(:version => 91) do
     t.datetime "updated_at"
   end
 
-  create_table "b_posts", :force => true do |t|
-    t.text     "message"
-    t.integer  "_id"
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "b_posts", ["_id"], :name => "index_b_posts_on__id", :unique => true
-  add_index "b_posts", ["hidden"], :name => "index_b_posts_on_hidden"
-  add_index "b_posts", ["ip_id"], :name => "index_b_posts_on_ip_id"
-  add_index "b_posts", ["thread_id"], :name => "index_b_posts_on_thread_id"
-  add_index "b_posts", ["user_id"], :name => "index_b_posts_on_user_id"
-
-  create_table "b_threads", :force => true do |t|
-    t.text     "message"
-    t.string   "title"
-    t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
-    t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "b_threads", ["_id"], :name => "index_b_threads_on__id", :unique => true
-  add_index "b_threads", ["hidden"], :name => "index_b_threads_on_hidden"
-  add_index "b_threads", ["ip_id"], :name => "index_b_threads_on_ip_id"
-  add_index "b_threads", ["user_id"], :name => "index_b_threads_on_user_id"
-
   create_table "bans", :force => true do |t|
     t.text     "reason"
     t.integer  "level"
@@ -73,100 +26,6 @@ ActiveRecord::Schema.define(:version => 91) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "bb_posts", :force => true do |t|
-    t.text     "message"
-    t.integer  "_id"
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "bb_posts", ["_id"], :name => "index_bb_posts_on__id", :unique => true
-  add_index "bb_posts", ["hidden"], :name => "index_bb_posts_on_hidden"
-  add_index "bb_posts", ["ip_id"], :name => "index_bb_posts_on_ip_id"
-  add_index "bb_posts", ["thread_id"], :name => "index_bb_posts_on_thread_id"
-  add_index "bb_posts", ["user_id"], :name => "index_bb_posts_on_user_id"
-
-  create_table "bb_threads", :force => true do |t|
-    t.text     "message"
-    t.string   "title"
-    t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
-    t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "bb_threads", ["_id"], :name => "index_bb_threads_on__id", :unique => true
-  add_index "bb_threads", ["hidden"], :name => "index_bb_threads_on_hidden"
-  add_index "bb_threads", ["ip_id"], :name => "index_bb_threads_on_ip_id"
-  add_index "bb_threads", ["user_id"], :name => "index_bb_threads_on_user_id"
-
-  create_table "bo_posts", :force => true do |t|
-    t.text     "message"
-    t.integer  "_id"
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "bo_posts", ["_id"], :name => "index_bo_posts_on__id", :unique => true
-  add_index "bo_posts", ["hidden"], :name => "index_bo_posts_on_hidden"
-  add_index "bo_posts", ["ip_id"], :name => "index_bo_posts_on_ip_id"
-  add_index "bo_posts", ["thread_id"], :name => "index_bo_posts_on_thread_id"
-  add_index "bo_posts", ["user_id"], :name => "index_bo_posts_on_user_id"
-
-  create_table "bo_threads", :force => true do |t|
-    t.text     "message"
-    t.string   "title"
-    t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
-    t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "bo_threads", ["_id"], :name => "index_bo_threads_on__id", :unique => true
-  add_index "bo_threads", ["hidden"], :name => "index_bo_threads_on_hidden"
-  add_index "bo_threads", ["ip_id"], :name => "index_bo_threads_on_ip_id"
-  add_index "bo_threads", ["user_id"], :name => "index_bo_threads_on_user_id"
 
   create_table "boards", :force => true do |t|
     t.string   "alias"
@@ -180,100 +39,6 @@ ActiveRecord::Schema.define(:version => 91) do
   end
 
   add_index "boards", ["alias"], :name => "index_boards_on_alias", :unique => true
-
-  create_table "cr_posts", :force => true do |t|
-    t.text     "message"
-    t.integer  "_id"
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "cr_posts", ["_id"], :name => "index_cr_posts_on__id", :unique => true
-  add_index "cr_posts", ["hidden"], :name => "index_cr_posts_on_hidden"
-  add_index "cr_posts", ["ip_id"], :name => "index_cr_posts_on_ip_id"
-  add_index "cr_posts", ["thread_id"], :name => "index_cr_posts_on_thread_id"
-  add_index "cr_posts", ["user_id"], :name => "index_cr_posts_on_user_id"
-
-  create_table "cr_threads", :force => true do |t|
-    t.text     "message"
-    t.string   "title"
-    t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
-    t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "cr_threads", ["_id"], :name => "index_cr_threads_on__id", :unique => true
-  add_index "cr_threads", ["hidden"], :name => "index_cr_threads_on_hidden"
-  add_index "cr_threads", ["ip_id"], :name => "index_cr_threads_on_ip_id"
-  add_index "cr_threads", ["user_id"], :name => "index_cr_threads_on_user_id"
-
-  create_table "d_posts", :force => true do |t|
-    t.text     "message"
-    t.integer  "_id"
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "d_posts", ["_id"], :name => "index_d_posts_on__id", :unique => true
-  add_index "d_posts", ["hidden"], :name => "index_d_posts_on_hidden"
-  add_index "d_posts", ["ip_id"], :name => "index_d_posts_on_ip_id"
-  add_index "d_posts", ["thread_id"], :name => "index_d_posts_on_thread_id"
-  add_index "d_posts", ["user_id"], :name => "index_d_posts_on_user_id"
-
-  create_table "d_threads", :force => true do |t|
-    t.text     "message"
-    t.string   "title"
-    t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
-    t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "d_threads", ["_id"], :name => "index_d_threads_on__id", :unique => true
-  add_index "d_threads", ["hidden"], :name => "index_d_threads_on_hidden"
-  add_index "d_threads", ["ip_id"], :name => "index_d_threads_on_ip_id"
-  add_index "d_threads", ["user_id"], :name => "index_d_threads_on_user_id"
 
   create_table "ids", :force => true do |t|
     t.text     "ids"
@@ -300,11 +65,13 @@ ActiveRecord::Schema.define(:version => 91) do
     t.datetime "updated_at"
   end
 
-  create_table "mu_posts", :force => true do |t|
+  create_table "posts", :force => true do |t|
     t.text     "message"
+    t.string   "board"
     t.integer  "_id"
     t.integer  "user_id"
     t.integer  "ip_id"
+    t.integer  "r_thread_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -317,15 +84,17 @@ ActiveRecord::Schema.define(:version => 91) do
     t.datetime "updated_at"
   end
 
-  add_index "mu_posts", ["_id"], :name => "index_mu_posts_on__id", :unique => true
-  add_index "mu_posts", ["hidden"], :name => "index_mu_posts_on_hidden"
-  add_index "mu_posts", ["ip_id"], :name => "index_mu_posts_on_ip_id"
-  add_index "mu_posts", ["thread_id"], :name => "index_mu_posts_on_thread_id"
-  add_index "mu_posts", ["user_id"], :name => "index_mu_posts_on_user_id"
+  add_index "posts", ["_id", "board"], :name => "index_posts_on__id_and_board", :unique => true
+  add_index "posts", ["board"], :name => "index_posts_on_board"
+  add_index "posts", ["ip_id"], :name => "index_posts_on_ip_id"
+  add_index "posts", ["r_thread_id"], :name => "index_posts_on_r_thread_id"
+  add_index "posts", ["thread_id"], :name => "index_posts_on_thread_id"
+  add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
-  create_table "mu_threads", :force => true do |t|
+  create_table "r_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
+    t.string   "board"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
     t.integer  "user_id"
@@ -342,57 +111,10 @@ ActiveRecord::Schema.define(:version => 91) do
     t.datetime "updated_at"
   end
 
-  add_index "mu_threads", ["_id"], :name => "index_mu_threads_on__id", :unique => true
-  add_index "mu_threads", ["hidden"], :name => "index_mu_threads_on_hidden"
-  add_index "mu_threads", ["ip_id"], :name => "index_mu_threads_on_ip_id"
-  add_index "mu_threads", ["user_id"], :name => "index_mu_threads_on_user_id"
-
-  create_table "s_posts", :force => true do |t|
-    t.text     "message"
-    t.integer  "_id"
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "s_posts", ["_id"], :name => "index_s_posts_on__id", :unique => true
-  add_index "s_posts", ["hidden"], :name => "index_s_posts_on_hidden"
-  add_index "s_posts", ["ip_id"], :name => "index_s_posts_on_ip_id"
-  add_index "s_posts", ["thread_id"], :name => "index_s_posts_on_thread_id"
-  add_index "s_posts", ["user_id"], :name => "index_s_posts_on_user_id"
-
-  create_table "s_threads", :force => true do |t|
-    t.text     "message"
-    t.string   "title"
-    t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
-    t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "s_threads", ["_id"], :name => "index_s_threads_on__id", :unique => true
-  add_index "s_threads", ["hidden"], :name => "index_s_threads_on_hidden"
-  add_index "s_threads", ["ip_id"], :name => "index_s_threads_on_ip_id"
-  add_index "s_threads", ["user_id"], :name => "index_s_threads_on_user_id"
+  add_index "r_threads", ["_id", "board"], :name => "index_r_threads_on__id_and_board", :unique => true
+  add_index "r_threads", ["board"], :name => "index_r_threads_on_board"
+  add_index "r_threads", ["ip_id"], :name => "index_r_threads_on_ip_id"
+  add_index "r_threads", ["user_id"], :name => "index_r_threads_on_user_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "key"
@@ -403,55 +125,9 @@ ActiveRecord::Schema.define(:version => 91) do
 
   add_index "sessions", ["key"], :name => "index_sessions_on_key", :unique => true
 
-  create_table "tv_posts", :force => true do |t|
-    t.text     "message"
-    t.integer  "_id"
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "tv_posts", ["_id"], :name => "index_tv_posts_on__id", :unique => true
-  add_index "tv_posts", ["hidden"], :name => "index_tv_posts_on_hidden"
-  add_index "tv_posts", ["ip_id"], :name => "index_tv_posts_on_ip_id"
-  add_index "tv_posts", ["thread_id"], :name => "index_tv_posts_on_thread_id"
-  add_index "tv_posts", ["user_id"], :name => "index_tv_posts_on_user_id"
-
-  create_table "tv_threads", :force => true do |t|
-    t.text     "message"
-    t.string   "title"
-    t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
-    t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "tv_threads", ["_id"], :name => "index_tv_threads_on__id", :unique => true
-  add_index "tv_threads", ["hidden"], :name => "index_tv_threads_on_hidden"
-  add_index "tv_threads", ["ip_id"], :name => "index_tv_threads_on_ip_id"
-  add_index "tv_threads", ["user_id"], :name => "index_tv_threads_on_user_id"
-
   create_table "users", :force => true do |t|
     t.text     "settings"
+    t.text     "seen"
     t.string   "password"
     t.integer  "ban_id"
     t.integer  "level",       :default => 1
@@ -462,99 +138,5 @@ ActiveRecord::Schema.define(:version => 91) do
   end
 
   add_index "users", ["password"], :name => "index_users_on_password", :unique => true
-
-  create_table "vg_posts", :force => true do |t|
-    t.text     "message"
-    t.integer  "_id"
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "vg_posts", ["_id"], :name => "index_vg_posts_on__id", :unique => true
-  add_index "vg_posts", ["hidden"], :name => "index_vg_posts_on_hidden"
-  add_index "vg_posts", ["ip_id"], :name => "index_vg_posts_on_ip_id"
-  add_index "vg_posts", ["thread_id"], :name => "index_vg_posts_on_thread_id"
-  add_index "vg_posts", ["user_id"], :name => "index_vg_posts_on_user_id"
-
-  create_table "vg_threads", :force => true do |t|
-    t.text     "message"
-    t.string   "title"
-    t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
-    t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "vg_threads", ["_id"], :name => "index_vg_threads_on__id", :unique => true
-  add_index "vg_threads", ["hidden"], :name => "index_vg_threads_on_hidden"
-  add_index "vg_threads", ["ip_id"], :name => "index_vg_threads_on_ip_id"
-  add_index "vg_threads", ["user_id"], :name => "index_vg_threads_on_user_id"
-
-  create_table "zen_posts", :force => true do |t|
-    t.text     "message"
-    t.integer  "_id"
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "zen_posts", ["_id"], :name => "index_zen_posts_on__id", :unique => true
-  add_index "zen_posts", ["hidden"], :name => "index_zen_posts_on_hidden"
-  add_index "zen_posts", ["ip_id"], :name => "index_zen_posts_on_ip_id"
-  add_index "zen_posts", ["thread_id"], :name => "index_zen_posts_on_thread_id"
-  add_index "zen_posts", ["user_id"], :name => "index_zen_posts_on_user_id"
-
-  create_table "zen_threads", :force => true do |t|
-    t.text     "message"
-    t.string   "title"
-    t.integer  "_id"
-    t.integer  "replies_count",     :default => 0
-    t.integer  "user_id"
-    t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
-    t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "zen_threads", ["_id"], :name => "index_zen_threads_on__id", :unique => true
-  add_index "zen_threads", ["hidden"], :name => "index_zen_threads_on_hidden"
-  add_index "zen_threads", ["ip_id"], :name => "index_zen_threads_on_ip_id"
-  add_index "zen_threads", ["user_id"], :name => "index_zen_threads_on_user_id"
 
 end

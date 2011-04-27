@@ -73,4 +73,13 @@ module ApplicationHelper
   def quote text
     "<span class='quote'>#{text}</span>"
   end
+
+  def parse_back(text)
+    text.gsub! '<br />',    "\n"
+    text.gsub! /<\/*?b>/,   '**'
+    text.gsub! /<\/*?i>/,   '*'
+    text.gsub! /<\/*?u>/,   '__'
+    text.gsub! /<\/*?span( class='spoiler')*?>/,   '%%'
+    return text
+  end
 end

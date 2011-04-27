@@ -178,7 +178,7 @@ function submit_reply() {
 					}
 					thread.append(post);
 					form.parent().css('display', 'none');
-					omitted = thread.find('.omitted span');
+					omitted = thread.find('.omitted b');
 					number = omitted.html();
 					number = parseInt(number);
 					number += 1
