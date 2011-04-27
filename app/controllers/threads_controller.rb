@@ -3,46 +3,30 @@ class ThreadsController < ApplicationController
 
   def create
     return not_found if not request.post?
-    params[:r_thread].merge!({
-      ip:         request.remote_ip,
-      _id:        get_next_id,
-      bump:       Time.now,
-      board_id:   @board.id,
-      file_info:  Hash.new,
-      author_id:  1
-    })
-    thread = RThread.new params[:r_thread]
+    ip = Ip.get(request.remote_ip)
+    params[:r_thread][:ip_id]   = ip.id if level == 1
+    params[:r_thread][:user_id] = @user.id if not anonymous?
+    thread = RThread.new(params[:r_thread])
     if thread.valid?
       if thread.file?
-        thread.message = parse thread.message
+        thread.message = parse(thread.message)
         thread.save
-        confirm_id
-        if thread.file?
-          thread.file_file_name = thread.file_file_name.force_encoding('utf-8')
-        end
         if params[:goto] == 'thread'
-          return render text: url_for(
-            action:     'show', 
-            id:         thread._id, 
-            format:     'html'
-          )
+          return render(text: thread_url(thread._id))
         else
-          return render text: url_for(
-            controller: 'boards', 
-            action:     'index', 
-            alias:      @board.alias
-          )
+          return render(text: board_url)
         end
       else
-        return render text: t('errors.no_picture')
+        return render(text: t('errors.no_picture'))
       end
     else
-      return thread.errors.to_a.join '<br />'
+      errors = thread.errors.to_a.join('<br />')
+      return render(text: errors)
     end
   end
 
   def show
-    @thread = RThread.find_by__id params[:id].to_i
+    @thread = RThread.find_by__id(params[:id].to_i)
     return not_found if not @thread
   end
 

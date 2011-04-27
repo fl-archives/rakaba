@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 6) do
+ActiveRecord::Schema.define(:version => 91) do
 
   create_table "admin_log_entries", :force => true do |t|
     t.integer  "user_id"
@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(:version => 6) do
 
   create_table "b_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -37,19 +37,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "b_posts", ["_id"], :name => "index_b_posts_on__id", :unique => true
-  add_index "b_posts", ["author_id"], :name => "index_b_posts_on_author_id"
   add_index "b_posts", ["hidden"], :name => "index_b_posts_on_hidden"
-  add_index "b_posts", ["ip"], :name => "index_b_posts_on_ip"
+  add_index "b_posts", ["ip_id"], :name => "index_b_posts_on_ip_id"
   add_index "b_posts", ["thread_id"], :name => "index_b_posts_on_thread_id"
+  add_index "b_posts", ["user_id"], :name => "index_b_posts_on_user_id"
 
   create_table "b_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -63,15 +62,23 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "b_threads", ["_id"], :name => "index_b_threads_on__id", :unique => true
-  add_index "b_threads", ["author_id"], :name => "index_b_threads_on_author_id"
   add_index "b_threads", ["hidden"], :name => "index_b_threads_on_hidden"
-  add_index "b_threads", ["ip"], :name => "index_b_threads_on_ip"
+  add_index "b_threads", ["ip_id"], :name => "index_b_threads_on_ip_id"
+  add_index "b_threads", ["user_id"], :name => "index_b_threads_on_user_id"
+
+  create_table "bans", :force => true do |t|
+    t.text     "reason"
+    t.integer  "level"
+    t.datetime "expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bb_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -85,19 +92,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "bb_posts", ["_id"], :name => "index_bb_posts_on__id", :unique => true
-  add_index "bb_posts", ["author_id"], :name => "index_bb_posts_on_author_id"
   add_index "bb_posts", ["hidden"], :name => "index_bb_posts_on_hidden"
-  add_index "bb_posts", ["ip"], :name => "index_bb_posts_on_ip"
+  add_index "bb_posts", ["ip_id"], :name => "index_bb_posts_on_ip_id"
   add_index "bb_posts", ["thread_id"], :name => "index_bb_posts_on_thread_id"
+  add_index "bb_posts", ["user_id"], :name => "index_bb_posts_on_user_id"
 
   create_table "bb_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -111,15 +117,15 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "bb_threads", ["_id"], :name => "index_bb_threads_on__id", :unique => true
-  add_index "bb_threads", ["author_id"], :name => "index_bb_threads_on_author_id"
   add_index "bb_threads", ["hidden"], :name => "index_bb_threads_on_hidden"
-  add_index "bb_threads", ["ip"], :name => "index_bb_threads_on_ip"
+  add_index "bb_threads", ["ip_id"], :name => "index_bb_threads_on_ip_id"
+  add_index "bb_threads", ["user_id"], :name => "index_bb_threads_on_user_id"
 
   create_table "bo_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -133,19 +139,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "bo_posts", ["_id"], :name => "index_bo_posts_on__id", :unique => true
-  add_index "bo_posts", ["author_id"], :name => "index_bo_posts_on_author_id"
   add_index "bo_posts", ["hidden"], :name => "index_bo_posts_on_hidden"
-  add_index "bo_posts", ["ip"], :name => "index_bo_posts_on_ip"
+  add_index "bo_posts", ["ip_id"], :name => "index_bo_posts_on_ip_id"
   add_index "bo_posts", ["thread_id"], :name => "index_bo_posts_on_thread_id"
+  add_index "bo_posts", ["user_id"], :name => "index_bo_posts_on_user_id"
 
   create_table "bo_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -159,16 +164,17 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "bo_threads", ["_id"], :name => "index_bo_threads_on__id", :unique => true
-  add_index "bo_threads", ["author_id"], :name => "index_bo_threads_on_author_id"
   add_index "bo_threads", ["hidden"], :name => "index_bo_threads_on_hidden"
-  add_index "bo_threads", ["ip"], :name => "index_bo_threads_on_ip"
+  add_index "bo_threads", ["ip_id"], :name => "index_bo_threads_on_ip_id"
+  add_index "bo_threads", ["user_id"], :name => "index_bo_threads_on_user_id"
 
   create_table "boards", :force => true do |t|
     t.string   "alias"
     t.string   "name"
     t.string   "description"
     t.integer  "level"
-    t.text     "settings"
+    t.integer  "total_threads"
+    t.text     "file_types"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -177,9 +183,9 @@ ActiveRecord::Schema.define(:version => 6) do
 
   create_table "cr_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -193,19 +199,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "cr_posts", ["_id"], :name => "index_cr_posts_on__id", :unique => true
-  add_index "cr_posts", ["author_id"], :name => "index_cr_posts_on_author_id"
   add_index "cr_posts", ["hidden"], :name => "index_cr_posts_on_hidden"
-  add_index "cr_posts", ["ip"], :name => "index_cr_posts_on_ip"
+  add_index "cr_posts", ["ip_id"], :name => "index_cr_posts_on_ip_id"
   add_index "cr_posts", ["thread_id"], :name => "index_cr_posts_on_thread_id"
+  add_index "cr_posts", ["user_id"], :name => "index_cr_posts_on_user_id"
 
   create_table "cr_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -219,15 +224,15 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "cr_threads", ["_id"], :name => "index_cr_threads_on__id", :unique => true
-  add_index "cr_threads", ["author_id"], :name => "index_cr_threads_on_author_id"
   add_index "cr_threads", ["hidden"], :name => "index_cr_threads_on_hidden"
-  add_index "cr_threads", ["ip"], :name => "index_cr_threads_on_ip"
+  add_index "cr_threads", ["ip_id"], :name => "index_cr_threads_on_ip_id"
+  add_index "cr_threads", ["user_id"], :name => "index_cr_threads_on_user_id"
 
   create_table "d_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -241,19 +246,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "d_posts", ["_id"], :name => "index_d_posts_on__id", :unique => true
-  add_index "d_posts", ["author_id"], :name => "index_d_posts_on_author_id"
   add_index "d_posts", ["hidden"], :name => "index_d_posts_on_hidden"
-  add_index "d_posts", ["ip"], :name => "index_d_posts_on_ip"
+  add_index "d_posts", ["ip_id"], :name => "index_d_posts_on_ip_id"
   add_index "d_posts", ["thread_id"], :name => "index_d_posts_on_thread_id"
+  add_index "d_posts", ["user_id"], :name => "index_d_posts_on_user_id"
 
   create_table "d_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -267,9 +271,9 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "d_threads", ["_id"], :name => "index_d_threads_on__id", :unique => true
-  add_index "d_threads", ["author_id"], :name => "index_d_threads_on_author_id"
   add_index "d_threads", ["hidden"], :name => "index_d_threads_on_hidden"
-  add_index "d_threads", ["ip"], :name => "index_d_threads_on_ip"
+  add_index "d_threads", ["ip_id"], :name => "index_d_threads_on_ip_id"
+  add_index "d_threads", ["user_id"], :name => "index_d_threads_on_user_id"
 
   create_table "ids", :force => true do |t|
     t.text     "ids"
@@ -277,6 +281,17 @@ ActiveRecord::Schema.define(:version => 6) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "ips", :force => true do |t|
+    t.string   "ip"
+    t.integer  "ban_id"
+    t.datetime "last_post"
+    t.datetime "last_thread"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ips", ["ip"], :name => "index_ips_on_ip", :unique => true
 
   create_table "motds", :force => true do |t|
     t.integer  "user_id"
@@ -287,9 +302,9 @@ ActiveRecord::Schema.define(:version => 6) do
 
   create_table "mu_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -303,19 +318,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "mu_posts", ["_id"], :name => "index_mu_posts_on__id", :unique => true
-  add_index "mu_posts", ["author_id"], :name => "index_mu_posts_on_author_id"
   add_index "mu_posts", ["hidden"], :name => "index_mu_posts_on_hidden"
-  add_index "mu_posts", ["ip"], :name => "index_mu_posts_on_ip"
+  add_index "mu_posts", ["ip_id"], :name => "index_mu_posts_on_ip_id"
   add_index "mu_posts", ["thread_id"], :name => "index_mu_posts_on_thread_id"
+  add_index "mu_posts", ["user_id"], :name => "index_mu_posts_on_user_id"
 
   create_table "mu_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -329,15 +343,15 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "mu_threads", ["_id"], :name => "index_mu_threads_on__id", :unique => true
-  add_index "mu_threads", ["author_id"], :name => "index_mu_threads_on_author_id"
   add_index "mu_threads", ["hidden"], :name => "index_mu_threads_on_hidden"
-  add_index "mu_threads", ["ip"], :name => "index_mu_threads_on_ip"
+  add_index "mu_threads", ["ip_id"], :name => "index_mu_threads_on_ip_id"
+  add_index "mu_threads", ["user_id"], :name => "index_mu_threads_on_user_id"
 
   create_table "s_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -351,19 +365,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "s_posts", ["_id"], :name => "index_s_posts_on__id", :unique => true
-  add_index "s_posts", ["author_id"], :name => "index_s_posts_on_author_id"
   add_index "s_posts", ["hidden"], :name => "index_s_posts_on_hidden"
-  add_index "s_posts", ["ip"], :name => "index_s_posts_on_ip"
+  add_index "s_posts", ["ip_id"], :name => "index_s_posts_on_ip_id"
   add_index "s_posts", ["thread_id"], :name => "index_s_posts_on_thread_id"
+  add_index "s_posts", ["user_id"], :name => "index_s_posts_on_user_id"
 
   create_table "s_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -377,15 +390,24 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "s_threads", ["_id"], :name => "index_s_threads_on__id", :unique => true
-  add_index "s_threads", ["author_id"], :name => "index_s_threads_on_author_id"
   add_index "s_threads", ["hidden"], :name => "index_s_threads_on_hidden"
-  add_index "s_threads", ["ip"], :name => "index_s_threads_on_ip"
+  add_index "s_threads", ["ip_id"], :name => "index_s_threads_on_ip_id"
+  add_index "s_threads", ["user_id"], :name => "index_s_threads_on_user_id"
+
+  create_table "sessions", :force => true do |t|
+    t.string   "key"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["key"], :name => "index_sessions_on_key", :unique => true
 
   create_table "tv_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -399,19 +421,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "tv_posts", ["_id"], :name => "index_tv_posts_on__id", :unique => true
-  add_index "tv_posts", ["author_id"], :name => "index_tv_posts_on_author_id"
   add_index "tv_posts", ["hidden"], :name => "index_tv_posts_on_hidden"
-  add_index "tv_posts", ["ip"], :name => "index_tv_posts_on_ip"
+  add_index "tv_posts", ["ip_id"], :name => "index_tv_posts_on_ip_id"
   add_index "tv_posts", ["thread_id"], :name => "index_tv_posts_on_thread_id"
+  add_index "tv_posts", ["user_id"], :name => "index_tv_posts_on_user_id"
 
   create_table "tv_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -425,15 +446,28 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "tv_threads", ["_id"], :name => "index_tv_threads_on__id", :unique => true
-  add_index "tv_threads", ["author_id"], :name => "index_tv_threads_on_author_id"
   add_index "tv_threads", ["hidden"], :name => "index_tv_threads_on_hidden"
-  add_index "tv_threads", ["ip"], :name => "index_tv_threads_on_ip"
+  add_index "tv_threads", ["ip_id"], :name => "index_tv_threads_on_ip_id"
+  add_index "tv_threads", ["user_id"], :name => "index_tv_threads_on_user_id"
+
+  create_table "users", :force => true do |t|
+    t.text     "settings"
+    t.string   "password"
+    t.integer  "ban_id"
+    t.integer  "level",       :default => 1
+    t.datetime "last_post"
+    t.datetime "last_thread"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["password"], :name => "index_users_on_password", :unique => true
 
   create_table "vg_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -447,19 +481,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "vg_posts", ["_id"], :name => "index_vg_posts_on__id", :unique => true
-  add_index "vg_posts", ["author_id"], :name => "index_vg_posts_on_author_id"
   add_index "vg_posts", ["hidden"], :name => "index_vg_posts_on_hidden"
-  add_index "vg_posts", ["ip"], :name => "index_vg_posts_on_ip"
+  add_index "vg_posts", ["ip_id"], :name => "index_vg_posts_on_ip_id"
   add_index "vg_posts", ["thread_id"], :name => "index_vg_posts_on_thread_id"
+  add_index "vg_posts", ["user_id"], :name => "index_vg_posts_on_user_id"
 
   create_table "vg_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -473,15 +506,15 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "vg_threads", ["_id"], :name => "index_vg_threads_on__id", :unique => true
-  add_index "vg_threads", ["author_id"], :name => "index_vg_threads_on_author_id"
   add_index "vg_threads", ["hidden"], :name => "index_vg_threads_on_hidden"
-  add_index "vg_threads", ["ip"], :name => "index_vg_threads_on_ip"
+  add_index "vg_threads", ["ip_id"], :name => "index_vg_threads_on_ip_id"
+  add_index "vg_threads", ["user_id"], :name => "index_vg_threads_on_user_id"
 
   create_table "zen_posts", :force => true do |t|
     t.text     "message"
-    t.string   "ip"
     t.integer  "_id"
-    t.integer  "author_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.integer  "thread_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sage",              :default => false
@@ -495,19 +528,18 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "zen_posts", ["_id"], :name => "index_zen_posts_on__id", :unique => true
-  add_index "zen_posts", ["author_id"], :name => "index_zen_posts_on_author_id"
   add_index "zen_posts", ["hidden"], :name => "index_zen_posts_on_hidden"
-  add_index "zen_posts", ["ip"], :name => "index_zen_posts_on_ip"
+  add_index "zen_posts", ["ip_id"], :name => "index_zen_posts_on_ip_id"
   add_index "zen_posts", ["thread_id"], :name => "index_zen_posts_on_thread_id"
+  add_index "zen_posts", ["user_id"], :name => "index_zen_posts_on_user_id"
 
   create_table "zen_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
-    t.string   "ip"
     t.integer  "_id"
     t.integer  "replies_count",     :default => 0
-    t.integer  "author_id"
-    t.integer  "board_id"
+    t.integer  "user_id"
+    t.integer  "ip_id"
     t.boolean  "hidden",            :default => false
     t.boolean  "sticky",            :default => false
     t.datetime "bump"
@@ -521,8 +553,8 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "zen_threads", ["_id"], :name => "index_zen_threads_on__id", :unique => true
-  add_index "zen_threads", ["author_id"], :name => "index_zen_threads_on_author_id"
   add_index "zen_threads", ["hidden"], :name => "index_zen_threads_on_hidden"
-  add_index "zen_threads", ["ip"], :name => "index_zen_threads_on_ip"
+  add_index "zen_threads", ["ip_id"], :name => "index_zen_threads_on_ip_id"
+  add_index "zen_threads", ["user_id"], :name => "index_zen_threads_on_user_id"
 
 end

@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 module ApplicationHelper
+  def anonymous?
+    return @user == 'anonymous'
+  end
+  
   def production? 
     ENV['RAILS_ENV'] == 'production'
   end
@@ -68,57 +72,5 @@ module ApplicationHelper
 
   def quote text
     "<span class='quote'>#{text}</span>"
-  end
-  
-  def parse_old text
-    puts text.inspect
-    url_regexp = /&lt;a.*href=['|"](.+?)['|"].*&gt;(.+?)&lt;\/a&gt;/
-    text.strip!
-    text.gsub! '&', '&amp;'
-    text.gsub! '<', '&lt;'
-    text.gsub! '>', '&gt;'
-    text.gsub! /\*\*(.+?)\*\*/, bold('\1')
-    text.gsub! /\*(.+?)\*/,     italic('\1')
-    text.gsub! /__(.+?)__/,     underline('\1')
-    text.gsub! /%%(.+?)%%/,     spoiler('\1')
-    text.gsub! url_regexp,      link('\1', '\2')
-    text.gsub! /&gt;&gt;(\d+)/, post_link('\1')
-    text.gsub! /&gt_SOSNOOLEY;&gt;(\d+)/ do |idd|
-      if @id_counter < 10
-        @id_counter += 1
-        id = idd[8..idd.length].to_i
-        post = Post.find_by__id id
-        thread = RThread.find_by__id(id) if not post
-        if post
-          thread = RThread.find_by__id post.thread_id
-          url = ApplicationController.url_for(
-            controller:   'threads', 
-            action:       'show', 
-            id:           thread._id,
-            hash:         id
-          )
-          "<div class='post_link'><a href='#{url}'>&gt;&gt;#{id}</a></div>"
-        elsif thread
-          url = url_for(controller: 'threads', action: 'show', id: thread._id)
-          "<div class='post_link'><a href='#{url}'>&gt;&gt;#{id}</a></div>"
-        else
-          idd
-        end
-      end
-    end
-
-    text.gsub! /^&gt;(.+)$/,  quote('\0')
-    text.gsub! /\r\n(\r\n)+/, '<br /><br />'
-    text.gsub! /\r\n/,        '<br />'
-    return text
-  end
-
-  def parse_back text
-    text.gsub! '<br />',    "\n"
-    text.gsub! /<\/*?b>/,   '**'
-    text.gsub! /<\/*?i>/,   '*'
-    text.gsub! /<\/*?u>/,   '__'
-    text.gsub! /<\/*?span( class='spoiler')*?>/,   '%%'
-    return text
   end
 end

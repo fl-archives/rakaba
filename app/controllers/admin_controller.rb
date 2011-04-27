@@ -13,12 +13,10 @@ class AdminController < ApplicationController
 	def motd
 		admin_only
 		if request.post?
-			params[:motd].merge!({
-				user_id: 1 #placeholder
-			})
-			motd = Motd.create params[:motd]
-			motd.message = parse motd.message
-			redirect_to controller: 'glagne', action: 'index'
+			params[:motd][:user_id] = @user.id
+			motd = Motd.create(params[:motd])
+			motd.message = parse(motd.message)
+			redirect_to(controller: 'glagne', action: 'index')
 		else
 			# this will show all motds in future
 			return not_found

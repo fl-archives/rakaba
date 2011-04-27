@@ -5,11 +5,10 @@ class CreateRThreads < ActiveRecord::Migration
       create_table board do |t|
       	t.text			:message
       	t.string		:title
-      	t.string		:ip
       	t.integer		:_id
       	t.integer		:replies_count,   default: 0
-      	t.integer		:author_id
-      	t.integer		:board_id
+      	t.integer		:user_id
+        t.integer   :ip_id
       	t.boolean		:hidden,          default: false
       	t.boolean		:sticky,          default: false
       	t.datetime	:bump
@@ -20,9 +19,9 @@ class CreateRThreads < ActiveRecord::Migration
         t.text      :file_info
         t.timestamps
       end
-      add_index board, :ip,         unique: false
+      add_index board, :ip_id,      unique: false
       add_index board, :_id,        unique: true
-      add_index board, :author_id,  unique: false
+      add_index board, :user_id,    unique: false
       add_index board, :hidden,     unique: false
     end
   end

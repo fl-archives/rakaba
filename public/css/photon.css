@@ -38,6 +38,7 @@ blockquote, p {
 	min-width: 700px;
 	max-width: 1100px;
 	padding: 15px;
+	padding-top: 0px;
 }
 
 #content {
@@ -436,3 +437,39 @@ blockquote {
 	color: #666;
 }
 
+#menubox {
+	float: right;
+	font-size: 13px;
+}
+
+#title {
+	float: left;
+}
+
+#navigation {
+	display: table;
+	width: 100%;
+}
+
+
+#menubox a {
+	margin-left: 20px;
+}
+
+#register_form {
+	margin: 0 auto;
+	margin-top: 35px;
+	width: 400px;
+}
+
+#register_form label {
+	font-size: 11px;
+	color: #666;
+}
+
+#register_form #password {
+	display: block;
+	font-size: 26px;
+	padding: 3px;
+	width: 100%;
+}

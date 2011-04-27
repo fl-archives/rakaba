@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_filter :authenticate
   protect_from_forgery
   include ApplicationHelper
 
@@ -7,8 +8,31 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def anonymous?
+    @user == 'anonymous'
+  end
+  
+  def authenticate
+    @user   = 'anonymous'
+    @level  = 1
+    if cookies.include?('rakaba_session')
+      @session = Session.get(cookies['rakaba_session'])
+      if @session
+        @user   = @session.user
+        @level  = @session.user.level
+        delta = (Time.new - @session.updated_at).to_i
+        if delta > 1800
+          @session.updated_at = Time.new
+          @session.save
+        end
+      else
+        cookies.delete(:rakaba_session)
+      end
+    end
+  end
+
   def not_found
-  	return render template: 'not_found'
+  	return render(template: 'not_found')
   end
 
   def change_board
@@ -16,7 +40,10 @@ class ApplicationController < ActionController::Base
       al = params[:alias]
 	  	if RThread.use_board(al)
         if @board = Board.find_by_alias(al)
-	  		  Post.use_board al
+          if @level < @board.level 
+            redirect_to(:root)
+          end
+	  		  Post.use_board(al)
         else
           return not_found
         end
@@ -26,23 +53,8 @@ class ApplicationController < ActionController::Base
 	  end
   end
 
-  def get_next_id
-    @ids_record = Ids.first
-    if not @ids_record.ids.has_key? @board.alias
-      @ids_record.ids[@board.alias] = 0
-    end
-    @ids_record.ids[@board.alias] += 1
-    @ids_record.total += 1
-    return @ids_record.ids[@board.alias]
-  end
-
-  def confirm_id
-    @ids_record.save
-  end
-
   def admin_only
-    # placeholder
-    return not_found if not true
+    return not_found if @level != 4
   end
 
   def parse(text)
@@ -72,14 +84,7 @@ class ApplicationController < ActionController::Base
           anchor    = nil
         end
         if post or thread
-          u = url_for(
-            format:     'html',
-            controller: 'threads', 
-            action:     'show',
-            alias:      @board.alias,
-            id:         thread_id,
-            anchor:     anchor
-          )
+          u = thread_url thread_id, anchor
           "<div class='post_link'><a href='#{u}'>#{idd}</a></div>"
         else
           idd
@@ -90,5 +95,25 @@ class ApplicationController < ActionController::Base
     end
     text.gsub! /^&gt;(.+)$/,    quote('\0')
     text
+  end
+
+  def thread_url id, anchor=nil
+    return url_for(
+      controller: 'threads',
+      action:     'show',
+      alias:      @board.alias,
+      id:         id,
+      anchor:     anchor,
+      format:     'html'
+    )
+  end
+
+  def board_url
+    return url_for(
+      controller: 'boards',
+      alias:      @board.alias,
+      action:     'index',
+      trailing_slash: true
+    )
   end
 end

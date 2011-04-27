@@ -1,5 +1,12 @@
-#title
-	%a{href: url_for(:root)}= t('title').html_safe
-	-if @board
-		&mdash; #{@board.name}
+#navigation
+	#title
+		%a{href: url_for(:root)}= t('title').html_safe
+		-if @board
+			&mdash; #{@board.name}
+	#menubox
+		-if anonymous?
+			%a#login_button{href: url_for(controller: 'auth', action: 'login', trailing_slash: true)}= "вход"
+			%a{href: url_for(controller: 'auth', action: 'register', trailing_slash: true)}= 'регистрация'
+		-else
+			%a{href: url_for(controller: 'auth', action: 'logout', trailing_slash: true)}= "выход"
 %hr

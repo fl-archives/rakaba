@@ -1,0 +1,10 @@
+= render template: 'boardlist'
+#infoblock
+	Ещё нет аккаунта? Так
+	%a{href: url_for(controller: 'auth', action: 'register')} зарегистрируйтесь
+	же.
+	-form_for User.new, html: {id: 'register_form', method: 'post'}, url: url_for(controller: 'auth', action: 'login') do |f|
+		.errors
+		%label{for: 'password'}
+		= f.password_field :password, id: 'password'
+		= f.submit 'Войти'

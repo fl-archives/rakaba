@@ -4,9 +4,9 @@ class CreatePosts < ActiveRecord::Migration
       board = "#{board[:alias]}_posts".to_sym    
       create_table board do |t|
       	t.text			:message
-      	t.string		:ip
       	t.integer		:_id
-      	t.integer		:author_id
+      	t.integer		:user_id
+        t.integer   :ip_id
       	t.integer		:thread_id
       	t.boolean		:hidden,            default: false
       	t.boolean		:sage,              default: false
@@ -18,9 +18,9 @@ class CreatePosts < ActiveRecord::Migration
         t.timestamps
       end
 
-      add_index board, :ip,         unique: false
+      add_index board, :ip_id,      unique: false
       add_index board, :_id,        unique: true
-      add_index board, :author_id,  unique: false
+      add_index board, :user_id,    unique: false
       add_index board, :thread_id,  unique: false
       add_index board, :hidden,     unique: false
     end
