@@ -7,9 +7,9 @@ gem 'rails', '3.0.7'
 
 gem 'mysql2'
 gem 'haml'
-gem 'paperclip'
 gem 'thin'
 gem 'will_paginate', '3.0.pre2'
+gem 'rmagick'
 
 # Use unicorn as the web server
 # gem 'unicorn'

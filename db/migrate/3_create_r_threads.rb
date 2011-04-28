@@ -11,11 +11,9 @@ class CreateRThreads < ActiveRecord::Migration
       t.boolean   :hidden,          default: false
       t.boolean   :sticky,          default: false
       t.datetime  :bump
-      t.string    :file_file_name
-      t.string    :file_content_type
-      t.integer   :file_file_size
-      t.datetime  :file_updated_at
-      t.text      :file_info
+      t.string    :file_name
+      t.string    :file_type
+      t.integer   :file_size
       t.timestamps
     end
 

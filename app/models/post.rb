@@ -1,11 +1,7 @@
 class Post < ActiveRecord::Base
 	belongs_to 	:r_thread
-	serialize		:file_info, Hash
-	has_attached_file		:file, 		styles: {thumb: "200x200>"}
-	validates_size_of		:message,	maximum: 3000
 
 	before_create do
-		self.file_info 	= Hash.new
 		self.rid				= Ids.get_next_id(self.board)
 	end
 
@@ -21,4 +17,18 @@ class Post < ActiveRecord::Base
 	def self.get(id, board)
 		return Post.where(rid: id, board: board).first
 	end
+
+	def has_file?
+		return self.file_name != nil
+	end
+
+	def file_url 
+		path = "/images/#{self.board}/#{self.file_name}"
+		return path + ".#{self.file_type}"
+	end
+
+	def thumb_url
+		path = "/images/#{self.board}/thumbs/#{self.file_name}"
+		return path + ".#{self.file_type}"
+	end	
 end

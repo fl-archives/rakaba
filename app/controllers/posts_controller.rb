@@ -27,26 +27,23 @@ class PostsController < ApplicationController
 		post = Post.new(params[:post])
 
 		if post.valid?
-			if post.message.empty? and not post.file?
+			if post.message.empty? and not params[:file]
 				return render(text: t('errors.no_content'))
 			else
+				file_result = process_file
+				if file_result.kind_of? Hash
+					post.file_name = file_result[:file_name]
+					post.file_size = file_result[:file_size]
+					post.file_type = file_result[:file_type]
+				elsif file_result.kind_of? String
+					return render(text: file_result)
+				end
 				post.message = parse(post.message)
 				post.save
-				expire_fragment(
-					controller: 		'threads',
-					action: 				'show',
-					action_suffix: 	"#{@board.alias}_#{thread.rid}"
-				)
-				expire_fragment(
-					controller: 		'boards',
-					action: 				'index',
-					action_suffix: 	"#{@board.alias}_front_page"
-				)
+				expire_fragment("#{@board.alias}_#{thread.rid}")
+				expire_board
 				if @level == 1 
 					@ip.last_post = post.created_at
-				end
-				if post.file?
-					post.file_file_name = post.file_file_name.force_encoding('utf-8')
 				end
 				thread.bump = post.created_at if not post.sage
 				thread.replies_count += 1

@@ -19,13 +19,13 @@
           #close_button скрыть форму
       %tr
         %td
-          = f.text_area :message
+          = f.text_area(:message)
           %input{type: 'hidden', value: frm, name: 'from'}
         %td
           %table
             %tr
               %td
-                = f.file_field :file, id: 'file'
+                %input#file{type: 'file', name: 'file'}
             %tr
               %td.mini
                 Перейти к 

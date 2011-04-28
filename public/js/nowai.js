@@ -268,7 +268,7 @@ function move_reply_form() {
 		else {
 			thread_id	= post.attr('id');
 		}
-		action = thread_id + '/reply'
+		action = '/' + board + '/' + thread_id + '/reply'
 		container.find('form').attr('action', action);
 	}
 	else {

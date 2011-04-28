@@ -16,20 +16,23 @@ class ThreadsController < ApplicationController
     
     thread = RThread.new(params[:r_thread])
     if thread.valid?
-      if thread.file?
+      file_result = process_file
+      if file_result.kind_of? Hash
+        thread.file_name = file_result[:file_name]
+        thread.file_size = file_result[:file_size]
+        thread.file_type = file_result[:file_type]
         thread.message = parse(thread.message)
         thread.save
-        expire_fragment(
-          controller:     'boards',
-          action:         'index', 
-          action_suffix:  "#{@board_alias}_front_page"
-        )
+        expire_board
+        puts 'okay'
         if params[:goto] == 'thread'
           return render(text: thread_url(thread.rid))
         else
           return render(text: board_url)
         end
-      else
+      elsif file_result.kind_of? String
+        return render(text: file_result)
+      elsif file_result == nil
         return render(text: t('errors.no_picture'))
       end
     else

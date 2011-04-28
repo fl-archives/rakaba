@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def expire_board
+    (1..10).each do |page|
+      expire_fragment("#{@board.alias}_page_#{page}")
+    end
+  end
+
   def get_write_permission
     url = url_for(controller: 'application', action: 'banned')
     if @level > 1
@@ -34,7 +40,6 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate
-    puts request.inspect
     @user   = 'anonymous'
     @level  = 1
     if cookies.include?('rakaba_session')
@@ -76,7 +81,6 @@ class ApplicationController < ActionController::Base
 
   def parse(text)
     text.strip!
-    puts text.inspect
     text.gsub!('&', '&amp;')
     text.gsub!('<', '&lt;') 
     text.gsub! '>', '&gt;'
@@ -114,7 +118,7 @@ class ApplicationController < ActionController::Base
     text
   end
 
-  def thread_url id, anchor=nil
+  def thread_url(id, anchor=nil)
     return url_for(
       controller: 'threads',
       action:     'show',
@@ -140,6 +144,57 @@ class ApplicationController < ActionController::Base
     end
     if @ip
       @ip.save if @ip.changed?
+    end
+  end
+
+  def process_file
+    if params[:file]
+      max_size = @board.settings[:max_file_size]
+      types = @board.settings[:allowed_file_types]
+      if params[:file].tempfile.size > max_size
+        return t('error.file_size_should_be') + " #{max_size / 1024}kb"
+      end
+      if not types.include? params[:file].content_type
+        allowed = Array.new
+        types.each do |type|
+          allowed << type.split('/')[1]
+        end
+        return t('error.file_type_sould_be') + ' ' + allowed.join(', ')
+      end
+      tempfile = params[:file].tempfile
+      hash = Digest::MD5.hexdigest(tempfile.read)
+      hash_record = RFile.where(board: @board.alias, hash: hash).first
+      if hash_record
+        return {
+          file_name: hash_record.name,
+          file_type: params[:file].content_type.split('/')[1],
+          file_size: tempfile.size
+        }
+      else
+        path = "#{RAILS_ROOT}/public/images/#{@board.alias}"
+        thumb_path = path + "/thumbs"
+        type = params[:file].content_type.split('/')[1]
+        Dir::mkdir(path) if not File.directory?(path)
+        Dir::mkdir(thumb_path) if not File.directory?(thumb_path)
+        file_index = "#{Time.now.to_i}#{100 + rand(899)}"
+        file_name = "#{file_index}.#{type}"
+        path += "/#{file_name}"
+        thumb_path += "/#{file_name}"
+        FileUtils.copy(tempfile.path, path)
+        thumb = Magick::ImageList.new(path)[0]
+        if thumb.columns > 200 or thumb.rows > 200
+          thumb.resize_to_fit!(200, 200)
+        end
+        thumb.write(thumb_path)
+        RFile.create(hash: hash, board: @board.alias, name: file_index)
+        return {
+          file_name: file_index,
+          file_type: type,
+          file_size: tempfile.size
+        }
+      end
+    else
+      return nil
     end
   end
 end

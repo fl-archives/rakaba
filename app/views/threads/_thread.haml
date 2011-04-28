@@ -1,20 +1,20 @@
--url = url_for controller: 'threads', action: 'show', id: thread.rid, format: 'html'
+-url = url_for(controller: 'threads', action: 'show', id: thread.rid, format: 'html')
 
 .thread{id: thread.rid}
-	-if thread.file?
+	-if thread.has_file?
 		%span.file_info
 			Файл:&nbsp;
-			%a{href: thread.file.url, target: '_blank'}<>
-				= thread.file_file_name
-			&nbsp;(#{thread.file.size / 1024} кб)
+			%a{href: thread.file_url, target: '_blank'}<>
+				= "#{thread.file_name}.#{thread.file_type}"
+			&nbsp;(#{thread.file_size / 1024} кб)
 			Показана уменьшенная копия, оригинал по клику.
 		%br
-		%a.file{href: thread.file.url, target: '_blank'}
-			= image_tag thread.file.url :thumb
+		%a.file{href: thread.file_url, target: '_blank'}
+			%img{src: thread.thumb_url}
 	%span.mini 
 		-if not thread.title.empty?
 			.title= thread.title
-		= verbose_date thread.created_at
+		= verbose_date(thread.created_at)
 		%a.reply_link{href: url}= "No.#{thread.rid}"
 		-if params[:action] != 'show'
 			[&nbsp;

@@ -2,15 +2,26 @@ class RThread < ActiveRecord::Base
 	include ApplicationHelper
 	
 	has_many 		:posts
-	serialize		:file_info, Hash
 	validates_length_of :title, 	maximum: 	250
 	validates_length_of :message,	maximum: 	3000
-	has_attached_file		:file, 		styles: {thumb: "200x200>"}
 
 	before_create do 
 		self.bump 			= Time.now
-		self.file_info	= Hash.new
 		self.rid				= Ids.get_next_id(self.board)
+	end
+
+	def has_file?
+		return self.file_name != nil
+	end
+
+	def file_url 
+		path = "/images/#{self.board}/#{self.file_name}"
+		return path + ".#{self.file_type}"
+	end
+
+	def thumb_url
+		path = "/images/#{self.board}/thumbs/#{self.file_name}"
+		return path + ".#{self.file_type}"
 	end
 
 	def self.get(rid, board)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 91) do
+ActiveRecord::Schema.define(:version => 92) do
 
   create_table "admin_log_entries", :force => true do |t|
     t.integer  "user_id"
@@ -30,10 +30,9 @@ ActiveRecord::Schema.define(:version => 91) do
   create_table "boards", :force => true do |t|
     t.string   "alias"
     t.string   "name"
-    t.string   "description"
     t.integer  "level"
     t.integer  "total_threads"
-    t.text     "file_types"
+    t.text     "settings"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -73,13 +72,11 @@ ActiveRecord::Schema.define(:version => 91) do
     t.integer  "ip_id"
     t.integer  "r_thread_id"
     t.integer  "thread_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sage",              :default => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
+    t.boolean  "hidden",      :default => false
+    t.boolean  "sage",        :default => false
+    t.string   "file_name"
+    t.string   "file_type"
+    t.integer  "file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -91,22 +88,30 @@ ActiveRecord::Schema.define(:version => 91) do
   add_index "posts", ["thread_id"], :name => "index_posts_on_thread_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
+  create_table "r_files", :force => true do |t|
+    t.string   "hash"
+    t.string   "board"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "r_files", ["hash", "board"], :name => "index_r_files_on_hash_and_board", :unique => true
+
   create_table "r_threads", :force => true do |t|
     t.text     "message"
     t.string   "title"
     t.string   "board"
     t.integer  "rid"
-    t.integer  "replies_count",     :default => 0
+    t.integer  "replies_count", :default => 0
     t.integer  "user_id"
     t.integer  "ip_id"
-    t.boolean  "hidden",            :default => false
-    t.boolean  "sticky",            :default => false
+    t.boolean  "hidden",        :default => false
+    t.boolean  "sticky",        :default => false
     t.datetime "bump"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.text     "file_info"
+    t.string   "file_name"
+    t.string   "file_type"
+    t.integer  "file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

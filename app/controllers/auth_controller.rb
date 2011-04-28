@@ -5,6 +5,7 @@ class AuthController < ApplicationController
 		password 	= Digest::MD5.hexdigest(SALT + params[:user][:password])
 		user 			= User.find_by_password(password)
 		if user
+			set_session(user.id)
 			return render(text: root_url)
 		else
 			return render(text: t('error.wrong_password'))

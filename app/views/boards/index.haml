@@ -1,5 +1,6 @@
-%script{type: 'text/javascript'}="var current_location = 'board';"
-
+%script{type: 'text/javascript'}
+	="var current_location = 'board';";
+	="var board = '#{@board.alias}';"
 #thread_form_container
 	=form_for RThread.new, url: url_for(controller: 'threads', action: 'create', alias: @board[:alias]), html: {id: 'thread_form', method: 'post', multipart: true} do |f|
 		%table
@@ -21,7 +22,7 @@
 				%td.label
 					Файл
 				%td
-					= f.file_field :file, id: 'file'
+					%input#file{type: 'file', name: 'file'}
 			%tr
 				%td.label
 					Перейти к
@@ -36,8 +37,7 @@
 	%br
 = render template: 'reply_form'
 
--cache(action: 'index', action_suffix: "#{@board.alias}_front_page") do
-
+-cache("#{@board.alias}_page_#{@threads.current_page}") do
 	-@threads.each do |thread|
 		.thread_container
 			= render partial: 'threads/thread', object: thread
@@ -57,8 +57,8 @@
 			-(1..@threads.total_pages).each do |page|
 				-cls = nil
 				-cls = 'current' if page == @threads.current_page
-				-u = url_for controller: 'boards', alias: @board.alias, action: 'page', page: page
-				-u = url_for controller: 'boards', alias: @board.alias, action: 'index' if page == 1
+				-u = url_for(controller: 'boards', alias: @board.alias, action: 'page', page: page)
+				-u = url_for(controller: 'boards', alias: @board.alias, action: 'index', trailing_slash: true) if page == 1
 				%a{class: cls, href: u}= page
 		-else
 			%a.current{href: '.'}= 1
