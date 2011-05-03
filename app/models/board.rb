@@ -1,3 +1,3 @@
 class Board < ActiveRecord::Base
-	serialize :settings
+  serialize :settings
 end

@@ -1,18 +1,18 @@
 #navigation
-	#title
-		%a{href: url_for(:root)}= t('title').html_safe
-		-if @board
-			&mdash; #{@board.name}
-	#menubox
-		-if anonymous?
-			%a#login_button{href: '#login'}= "вход"
-			%a{href: url_for(controller: 'auth', action: 'register', trailing_slash: true)}= 'регистрация'
-		-else
-			%a{href: url_for(controller: 'auth', action: 'logout', trailing_slash: true)}= "выход"
-	-if anonymous?
-		#login_box	
-			= form_for(User.new, url: url_for(controller: 'auth', action: 'login'), html: {method: 'post'}) do |f|
-				= f.submit('войти')
-				= f.password_field(:password, id: 'login_password_input')
-				.errors
+  #title
+    %a{href: url_for(:root)}= t('title').html_safe
+    -if @board
+      &mdash; #{@board.name}
+  #menubox
+    -if anonymous?
+      %a#login_button{href: '#login'}= "вход"
+      %a{href: url_for(controller: 'auth', action: 'register', trailing_slash: true)}= 'регистрация'
+    -else
+      %a{href: url_for(controller: 'auth', action: 'logout', trailing_slash: true)}= "выход"
+  -if anonymous?
+    #login_box  
+      = form_for(User.new, url: url_for(controller: 'auth', action: 'login'), html: {method: 'post'}) do |f|
+        = f.submit('войти')
+        = f.password_field(:password, id: 'login_password_input')
+        .errors
 %hr

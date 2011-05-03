@@ -1,7 +1,7 @@
 class CreateIds < ActiveRecord::Migration
   def self.up
     create_table :ids do |t|
-    	t.text	    :ids
+      t.text      :ids
       t.integer   :total
       t.timestamps
     end

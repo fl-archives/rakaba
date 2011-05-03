@@ -2,19 +2,19 @@
 -url += "##{post.rid}"
 
 .post{id: post.rid}
-	%span.mini
-		= verbose_date(post.created_at)
-		%a.reply_link{href: url}= "No.#{post.rid}"
-		%a.delete_link{href: "#delete_#{post.rid}"}="x"
-	-if post.has_file?
-		%span.file_info
-			Файл:&nbsp;
-			%a{href: post.file_url, target: '_blank'}<>
-				= "#{post.file_name}.#{post.file_type}"
-			&nbsp;(#{post.file_size / 1024} кб)
-			Показана уменьшенная копия, оригинал по клику.
-		%br
-		%a.file{href: post.file_url, target: '_blank'}
-			%img{src: post.thumb_url}
-	%blockquote= post.message.html_safe
+  %span.mini
+    = verbose_date(post.created_at)
+    %a.reply_link{href: url}= "No.#{post.rid}"
+    %a.delete_link{href: "#delete_#{post.rid}"}="x"
+  -if post.has_file?
+    %span.file_info
+      Файл:&nbsp;
+      %a{href: post.file_url, target: '_blank'}<>
+        = "#{post.file_name}.#{post.file_type}"
+      &nbsp;(#{post.file_size / 1024} кб)
+      Показана уменьшенная копия, оригинал по клику.
+    %br
+    %a.file{href: post.file_url, target: '_blank'}
+      %img{src: post.thumb_url}
+  %blockquote= post.message.html_safe
 

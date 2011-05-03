@@ -1,24 +1,24 @@
 #boardlist_container
-	%table#boardlist{cellpadding: 3}
-		-i = Ids.first
-		-Board.all.each do |board|
-			-if board.level <= @level
-				-url = url_for(controller: 'boards', action: 'index', alias: board.alias, trailing_slash: true)
-				-replies = nil
-				-if i.ids.has_key? board.alias
-					-if i.ids[board.alias] > 0
-						-replies = i.ids[board.alias]
-				%tr.board
-					%td.board_alias= 	"/#{board.alias}/"
-					%td.mini=					replies
-					%td.board_name
-						%a{href: url}=	board.name
-	#stat
-		Всего #{i.total} #{verbose_replies i.total}
-		в #{Board.count} разделах.
-		-if $registration and params[:controller] != 'auth'
-			-if anonymous?
-				%br
-				Хотите больше разделов?
-				%a{href: '#register'} Зарегистрируйтесь!
-	
+  %table#boardlist{cellpadding: 3}
+    -i = Ids.first
+    -Board.all.each do |board|
+      -if board.level <= @level
+        -url = url_for(controller: 'boards', action: 'index', alias: board.alias, trailing_slash: true)
+        -replies = nil
+        -if i.ids.has_key? board.alias
+          -if i.ids[board.alias] > 0
+            -replies = i.ids[board.alias]
+        %tr.board
+          %td.board_alias=  "/#{board.alias}/"
+          %td.mini=         replies
+          %td.board_name
+            %a{href: url}=  board.name
+  #stat
+    Всего #{i.total} #{verbose_replies i.total}
+    в #{Board.count} разделах.
+    -if $registration and params[:controller] != 'auth'
+      -if anonymous?
+        %br
+        Хотите больше разделов?
+        %a{href: url_for(controller: 'auth', action: 'register', trailing_slash: true)} Зарегистрируйтесь!
+  

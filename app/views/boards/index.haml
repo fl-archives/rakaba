@@ -1,64 +1,64 @@
 %script{type: 'text/javascript'}
-	="var current_location = 'board';";
-	="var board = '#{@board.alias}';"
+  ="var current_location = 'board';";
+  ="var board = '#{@board.alias}';"
 #thread_form_container
-	=form_for RThread.new, url: url_for(controller: 'threads', action: 'create', alias: @board[:alias]), html: {id: 'thread_form', method: 'post', multipart: true} do |f|
-		%table
-			%tr
-				.errors
-			%tr
-				%td.label
-					Тема
-				%td
-					= f.text_field :title, id: 'title_input'
-					= f.submit id: 'submit_button', value: 'отправить'
-			%tr
-				%td.label
-					Сообщение
-				%td
-					= render template: 'editbox'
-					= f.text_area :message
-			%tr
-				%td.label
-					Файл
-				%td
-					%input#file{type: 'file', name: 'file'}
-			%tr
-				%td.label
-					Перейти к
-				%td
-					%label
-						%input{type: 'radio', name: 'goto', value: 'thread', checked: true}
-						треду
-					%label
-						%input{type: 'radio', name: 'goto', value: 'board'}
-						доске
-	%hr
-	%br
+  =form_for RThread.new, url: url_for(controller: 'threads', action: 'create', alias: @board[:alias]), html: {id: 'thread_form', method: 'post', multipart: true} do |f|
+    %table
+      %tr
+        .errors
+      %tr
+        %td.label
+          Тема
+        %td
+          = f.text_field :title, id: 'title_input'
+          = f.submit id: 'submit_button', value: 'отправить'
+      %tr
+        %td.label
+          Сообщение
+        %td
+          = render template: 'editbox'
+          = f.text_area :message
+      %tr
+        %td.label
+          Файл
+        %td
+          %input#file{type: 'file', name: 'file'}
+      %tr
+        %td.label
+          Перейти к
+        %td
+          %label
+            %input{type: 'radio', name: 'goto', value: 'thread', checked: true}
+            треду
+          %label
+            %input{type: 'radio', name: 'goto', value: 'board'}
+            доске
+  %hr
+  %br
 = render template: 'reply_form'
 
 -cache("#{@board.alias}_page_#{@threads.current_page}") do
-	-@threads.each do |thread|
-		.thread_container
-			= render partial: 'threads/thread', object: thread
-			-if thread.replies_count > 3
-				%span.mini.omitted 
-					-replies = thread.replies_count - 3
-					Пропущено
-					%b= replies
-					= "#{verbose_replies replies}."
-					Нажмите «Открыть тред», чтобы увидеть всё целиком.
-			= render partial: 'posts/post', collection: thread.last_replies(3)
-		%hr
+  -@threads.each do |thread|
+    .thread_container
+      = render partial: 'threads/thread', object: thread
+      -if thread.replies_count > 3
+        %span.mini.omitted 
+          -replies = thread.replies_count - 3
+          Пропущено
+          %b= replies
+          = "#{verbose_replies replies}."
+          Нажмите «Открыть тред», чтобы увидеть всё целиком.
+      = render partial: 'posts/post', collection: thread.last_replies(3)
+    %hr
 
-	#pages
-		Страницы:
-		-if @threads.total_pages > 1
-			-(1..@threads.total_pages).each do |page|
-				-cls = nil
-				-cls = 'current' if page == @threads.current_page
-				-u = url_for(controller: 'boards', alias: @board.alias, action: 'page', page: page)
-				-u = url_for(controller: 'boards', alias: @board.alias, action: 'index', trailing_slash: true) if page == 1
-				%a{class: cls, href: u}= page
-		-else
-			%a.current{href: '.'}= 1
+  #pages
+    Страницы:
+    -if @threads.total_pages > 1
+      -(1..@threads.total_pages).each do |page|
+        -cls = nil
+        -cls = 'current' if page == @threads.current_page
+        -u = url_for(controller: 'boards', alias: @board.alias, action: 'page', page: page)
+        -u = url_for(controller: 'boards', alias: @board.alias, action: 'index', trailing_slash: true) if page == 1
+        %a{class: cls, href: u}= page
+    -else
+      %a.current{href: '.'}= 1

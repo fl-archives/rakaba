@@ -1,15 +1,15 @@
 class CreatePosts < ActiveRecord::Migration
   def self.up
     create_table :posts do |t|
-    	t.text			:message
+      t.text      :message
       t.string    :board
-    	t.integer		:rid
-    	t.integer		:user_id
+      t.integer   :rid
+      t.integer   :user_id
       t.integer   :ip_id
       t.integer   :r_thread_id
-    	t.integer		:thread_id
-    	t.boolean		:hidden,            default: false
-    	t.boolean		:sage,              default: false
+      t.integer   :thread_id
+      t.boolean   :hidden,            default: false
+      t.boolean   :sage,              default: false
       t.string    :file_name
       t.string    :file_type
       t.integer   :file_size

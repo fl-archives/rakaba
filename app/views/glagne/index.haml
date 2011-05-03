@@ -1,18 +1,18 @@
 = render template: 'boardlist'
 #infoblock
-	%blockquote#motd
-		-if m = Motd.last
-			= m.message.html_safe
-			-text = parse_back m.message.html_safe
-		-else
-			Тут пока что никто ничего не написал.
-			-text = ''
-	-if @level == 4
-		%a#motd_button{href: '#motd'} редактировать
-		-form_for Motd.new, url: url_for(controller: 'admin', action: 'motd'), html: {id: 'motd_form', method: 'post'} do |f|
-			= render template: 'editbox'
-			= f.text_area :message, value: text
-			= f.submit 'сохранить'
-			
+  %blockquote#motd
+    -if m = Motd.last
+      = m.message.html_safe
+      -text = parse_back m.message.html_safe
+    -else
+      Тут пока что никто ничего не написал.
+      -text = ''
+  -if @level == 4
+    %a#motd_button{href: '#motd'} редактировать
+    -form_for Motd.new, url: url_for(controller: 'admin', action: 'motd'), html: {id: 'motd_form', method: 'post'} do |f|
+      = render template: 'editbox'
+      = f.text_area :message, value: text
+      = f.submit 'сохранить'
+      
 
 

@@ -1,6 +1,8 @@
 ru:
   title: "Nowai<sup>5</sup>"
   errors:
-    no_picture:       "Вы забыли приложить картинку."
+    wrong_password:   "Пароль не подходит."
+    short_password:   "Пароль слишком короткий."
+    no_picture:       "Вы забыли приложить файл."
     no_content:       "В сообщении нет ни текста, ни картинки."
     thread_not_found: "Тред не найден. Возможно, его удалили."

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   def not_found_hack
-  	return not_found
+    return not_found
   end
 
   def banned
@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-  	return render(template: 'not_found')
+    return render(template: 'not_found')
   end
 
   def check_board
@@ -67,7 +67,11 @@ class ApplicationController < ActionController::Base
       board = params[:alias]
       if @board = Board.find_by_alias(board)
         if @level < @board.level
-          return redirect_to(:root)
+          if anonymous?
+            return redirect_to(register_path + '/');
+          else
+            return redirect_to(:root)
+          end
         end
       else
         return not_found
@@ -171,6 +175,9 @@ class ApplicationController < ActionController::Base
           file_size: tempfile.size
         }
       else
+        if not File.directory?("#{RAILS_ROOT}/public/images")
+          Dir::mkdir("#{RAILS_ROOT}/public/images")
+        end
         path = "#{RAILS_ROOT}/public/images/#{@board.alias}"
         thumb_path = path + "/thumbs"
         type = params[:file].content_type.split('/')[1]

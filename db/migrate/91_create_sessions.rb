@@ -1,8 +1,8 @@
 class CreateSessions < ActiveRecord::Migration
   def self.up
     create_table :sessions do |t|
-    	t.string		:key
-    	t.integer		:user_id
+      t.string    :key
+      t.integer   :user_id
       t.timestamps
     end
 

@@ -1,23 +1,23 @@
 -url = url_for(controller: 'threads', action: 'show', id: thread.rid, format: 'html')
 
 .thread{id: thread.rid}
-	-if thread.has_file?
-		%span.file_info
-			Файл:&nbsp;
-			%a{href: thread.file_url, target: '_blank'}<>
-				= "#{thread.file_name}.#{thread.file_type}"
-			&nbsp;(#{thread.file_size / 1024} кб)
-			Показана уменьшенная копия, оригинал по клику.
-		%br
-		%a.file{href: thread.file_url, target: '_blank'}
-			%img{src: thread.thumb_url}
-	%span.mini 
-		-if not thread.title.empty?
-			.title= thread.title
-		= verbose_date(thread.created_at)
-		%a.reply_link{href: url}= "No.#{thread.rid}"
-		-if params[:action] != 'show'
-			[&nbsp;
-			%a{href: url}<> Открыть тред
-			&nbsp;]
-	%blockquote= thread.message.html_safe
+  -if thread.has_file?
+    %span.file_info
+      Файл:&nbsp;
+      %a{href: thread.file_url, target: '_blank'}<>
+        = "#{thread.file_name}.#{thread.file_type}"
+      &nbsp;(#{thread.file_size / 1024} кб)
+      Показана уменьшенная копия, оригинал по клику.
+    %br
+    %a.file{href: thread.file_url, target: '_blank'}
+      %img{src: thread.thumb_url}
+  %span.mini 
+    -if not thread.title.empty?
+      .title= thread.title
+    = verbose_date(thread.created_at)
+    %a.reply_link{href: url}= "No.#{thread.rid}"
+    -if params[:action] != 'show'
+      [&nbsp;
+      %a{href: url}<> Открыть тред
+      &nbsp;]
+  %blockquote= thread.message.html_safe

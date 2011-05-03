@@ -1,249 +1,250 @@
 html, body {
-	background: #eee;
-	color: #333;
-	font-family: 'Trebuchet MS', sans-serif;
-	font-size: 16px;
+  background: #eee;
+  color: #333;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 16px;
 }
 
 a {
-	color: #f60;
+  color: #f60;
 }
 
 img {
-	border: none;
+  border: none;
 }
 
 a:hover {
-	color: #06f;
+  color: #06f;
 }
 
 blockquote, p {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .post, #thread_button, #sreply_form_container, #infoblock {
-	background: #ddd;
-	border: 1px solid #ccc;
+  background: #ddd;
+  border: 1px solid #ccc;
 
-	box-shadow: 1px 1px 1px 1px #e9e9e9;
-	-moz-box-shadow: 1px 1px 1px 1px #e9e9e9;
-	-webkit-box-shadow: 1px 1px 1px 1px #e9e9e9;
+  box-shadow: 1px 1px 1px 1px #e9e9e9;
+  -moz-box-shadow: 1px 1px 1px 1px #e9e9e9;
+  -webkit-box-shadow: 1px 1px 1px 1px #e9e9e9;
 }
 
 #container {
-	margin: 0 auto;
-	min-width: 700px;
-	max-width: 1100px;
-	padding: 15px;
-	padding-top: 0px;
+  margin: 0 auto;
+  min-width: 700px;
+  max-width: 1100px;
+  padding: 15px;
+  padding-top: 0px;
 }
 
 #content {
-	margin-top: 15px;
+  margin-top: 15px;
 }
 
 #thread_form_container {
 }
 
 #thread_button {
-	padding: 4px;
-	font-weight: bold;
-	text-align: center;
-	color: #f60;
-	font-size: 18px;
+  padding: 4px;
+  font-weight: bold;
+  text-align: center;
+  color: #f60;
+  font-size: 18px;
 }
 
 #thread_button:hover {
-	color: #06f;
-	cursor: pointer;
+  color: #06f;
+  cursor: pointer;
 }
 
 #thread_form {
-	width: 650px;
-	display: table;
-	margin: 0 auto;
-	margin-top: 15px;
-	margin-bottom: 20px;
+  width: 650px;
+  display: table;
+  margin: 0 auto;
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
 #thread_form table {
-	width: 100%;
-	text-align: left;
+  width: 100%;
+  text-align: left;
 }
 
 
 #thread_form textarea {
-	width: 100%;
-	height: 200px;
+  width: 100%;
+  height: 200px;
 }
 
 #thread_form td.label {
-	width: 18%;
-	font-weight: bold;
-	color: #024;
-	font-size: 17px;
+  width: 18%;
+  font-weight: bold;
+  color: #024;
+  font-size: 17px;
 }
 
 .title {
-	display: inline;
-	color: #024;
-	font-size: 18px;
-	margin-right: 10px;
-	font-weight: bold;
+  display: inline;
+  color: #024;
+  font-size: 18px;
+  margin-right: 10px;
+  font-weight: bold;
 }
 
 #thread_form #title_input {
-	width: 80%;
+  width: 80%;
 }
 
 #thread_form #submit_button {
-	float: right;
+  float: right;
 }
 
 #submit_button {
-	padding: 3px;
+  padding: 3px;
 }
 
 #submit_button:hover {
-	cursor: pointer;
+  cursor: pointer;
 color: #f60;
 }
 
 input, textarea {
-	background: white;
-	border: 1px solid #ccc;
+  background: white;
+  border: 1px solid #ccc;
 }
 
 hr {
-	border: none;
-	border-top: 1px solid #bbb;
+  border: none;
+  border-top: 1px solid #bbb;
 }
 
 .mini, .file_info {
-	font-size: 13px;
-	color: #666;
+  font-size: 13px;
+  color: #666;
 }
 
 .file_info {
-	font-size: 11px;
+  font-size: 11px;
 }
 
 .post, #reply_form_container {
-	padding: 8px;
-	padding-top: 2px;
-	display: table;
-	margin-bottom: 6px;
+  padding: 8px;
+  padding-top: 2px;
+  display: table;
+  margin-bottom: 6px;
 }
 
 #reply_form_container {
-	padding: 0;
+  padding: 0;
+  margin-bottom: 15px;
 }
 
 .thread_container {
-	display: table;
-	margin-bottom: 30px;
-	margin-top: 30px;
-	width: 100%;
+  display: table;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  width: 100%;
 }
 
 .thread_container hr {
-	margin-top: 15px;
+  margin-top: 15px;
 }
 
 .post .mini, .thread .mini {
 }
 
 .reply_link {
-	text-decoration: none;
-	color: #555;
-	margin-right: 10px;
-	margin-left: 5px;
-	font-weight: bold;
+  text-decoration: none;
+  color: #555;
+  margin-right: 10px;
+  margin-left: 5px;
+  font-weight: bold;
 }
 
 .omitted {
-	margin-left: 20px;
-	margin-top: 5px;
-	margin-bottom: 8px;
-	display: block;
+  margin-left: 20px;
+  margin-top: 5px;
+  margin-bottom: 8px;
+  display: block;
 }
 
 
 .thread {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 #title_input {
-	padding: 3px;
+  padding: 3px;
 }
 
 #file {
-	background: none;
-	border: none;
+  background: none;
+  border: none;
 }
 
 #title {
-	color: #f60;
-	font-size: 30px;
-	font-weight: bold;
-	border-bottom: 2px solid #eee;
+  color: #f60;
+  font-size: 30px;
+  font-weight: bold;
+  border-bottom: 2px solid #eee;
 }
 
 .goback {
-	text-decoration: none;
-	margin-bottom: 10px;
-	display: table;
+  text-decoration: none;
+  margin-bottom: 10px;
+  display: table;
 }
 
 
 .editbox {
-	font-size: 11px;
-	color: #666;
+  font-size: 11px;
+  color: #666;
 }
 
 #thread_form .editbox {
-	float: left;
-	margin-bottom: 3px;
+  float: left;
+  margin-bottom: 3px;
 }
 
 .editbox b, .editbox i, .editbox u, .editbox .spoiler {
-	margin-right: 13px;
-	cursor: pointer;
+  margin-right: 13px;
+  cursor: pointer;
 }
 
 .editbox a {
-	color: inherit;
-	cursor: pointer;
+  color: inherit;
+  cursor: pointer;
 }
 
 .editbox b:hover, .editbox i:hover, 
 .editbox u:hover, .editbox a:hover {
-	color: #f60;	
+  color: #f60;  
 }
 
 #reply_form {
 }
 
 #reply_form table tr {
-	vertical-align: top;
+  vertical-align: top;
 }
 
 #reply_form #file {
-	width: 100%;
+  width: 100%;
 }
 
 #reply_form .mini {
-	color: inherit;
+  color: inherit;
 }
 
 #reply_form textarea {
-	width: 500px;
-	height: 170px;
+  width: 500px;
+  height: 170px;
 }
 
 #reply_form_container {
-	padding-top: 8px;
+  padding-top: 8px;
 }
 
 #reply_form table table tr td {
@@ -251,237 +252,237 @@ padding-bottom: 8px;
 }
 
 .post_link {
-	display: inline;
+  display: inline;
 }
 
 .file img {
-	float: left;
-	margin-top: 4px;
-	margin-right: 14px;
+  float: left;
+  margin-top: 4px;
+  margin-right: 14px;
 }
 
 .post span.mini {
-	display: block;
+  display: block;
 }
 
 .errors {
-	color: red;
+  color: red;
 }
 
 .post blockquote {
-	min-width: 300px;
+  min-width: 300px;
 }
 
 #close_button {
-	cursor: pointer;
-	color: #f60;
-	font-size: 13px;
-	float: right;
-	text-decoration: underline;
-	display: none;
+  cursor: pointer;
+  color: #f60;
+  font-size: 13px;
+  float: right;
+  text-decoration: underline;
+  display: none;
 }
 
 #close_button:hover {
-	color: #06f;
-	text-decoration: none;
+  color: #06f;
+  text-decoration: none;
 }
 
 .delete_link {
-	float: right;
-	text-decoration: none;
-	color: #aaa;
-	opacity: 0;
-	font-weight: bold;
+  float: right;
+  text-decoration: none;
+  color: #aaa;
+  opacity: 0;
+  font-weight: bold;
 }
 
 blockquote {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 
 #boardlist {
-	width: 300px;
+  width: 300px;
 }
 
 .board {
 }
 
 .board_alias {
-	color: #aaa;
-	font-weight: bold;
-	font-size: 30px;
-	width: 80px;
+  color: #aaa;
+  font-weight: bold;
+  font-size: 30px;
+  width: 80px;
 }
 
 .board_name {
-	font-size: 18px;
+  font-size: 18px;
 }
 
 .board_name a{
-	text-decoration: none;
+  text-decoration: none;
 }
 
 .board td.mini {
-	color: #888;
-	opacity: 0;
-	text-align: center;
+  color: #888;
+  opacity: 0;
+  text-align: center;
 }
 
 
 #title a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 #title a:hover  {
-	border-bottom: 2px dashed #06f;
+  border-bottom: 2px dashed #06f;
 }
 
 #infoblock {
-	float: right;
-	width: 600px;
-	height: 500px;
-	padding: 15px;
+  float: right;
+  width: 600px;
+  height: 500px;
+  padding: 15px;
 }
 
 #glagne {
-	vertical-align: top;
-	width: 100%;
-	height: 500px;
+  vertical-align: top;
+  width: 100%;
+  height: 500px;
 }
 
 .spoiler {
-	background: #bbb;
-	color: #bbb;
+  background: #bbb;
+  color: #bbb;
 }
 
 .spoiler:hover {
-	color: #333;
+  color: #333;
 }
 
 .quote {
-	color: #789922;
+  color: #789922;
 }
 
 #footer {
-	clear: both;
-	padding-top: 20px;
-	font-size: 11px;
-	color: #999;
-	text-align: center;
+  clear: both;
+  padding-top: 20px;
+  font-size: 11px;
+  color: #999;
+  text-align: center;
 }
 
 .post.selected {
-	background: #EEDACB;
-	border: 2px dashed #f60;
+  background: #EEDACB;
+  border: 2px dashed #f60;
 }
 
 #pages {
-	color: #666;
+  color: #666;
 }
 
 #pages a {
-	margin-right: 5px;
-	margin-left: 5px;
-	padding-left: 8px;
-	padding-right: 8px;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 #pages a.current {
-	background: #ccc;
-	text-decoration: none;
-	color: black;
+  background: #ccc;
+  text-decoration: none;
+  color: black;
 }
 
 #motd {
-	
+  
 }
 
 #motd_form {
-	display: none;
+  display: none;
 }
 
 #motd_form textarea {
-	width: 100%;
-	height: 200px;
+  width: 100%;
+  height: 200px;
 }
 
 #motd_button {
-	float: right;
-	font-size: 13px;
+  float: right;
+  font-size: 13px;
 }
 
 #stat {
-	margin-top: 20px;
-	font-size: 11px;
-	display: table;
-	color: #666;
+  margin-top: 20px;
+  font-size: 11px;
+  display: table;
+  color: #666;
 }
 
 #boardlist_container {
-	float: left;
-	display: table;
+  float: left;
+  display: table;
 }
 
 
 #not_found {
-	text-align: center;
+  text-align: center;
 
 }
 
 #not_found h1 {
-	font-size: 10em;
-	font-family: serif;
-	margin-bottom: 10px;
-	margin-top: 70px;
+  font-size: 10em;
+  font-family: serif;
+  margin-bottom: 10px;
+  margin-top: 70px;
 }
 
 #not_found span {
-	color: #666;
+  color: #666;
 }
 
 #menubox {
-	float: right;
-	font-size: 13px;
+  float: right;
+  font-size: 13px;
 }
 
 #title {
-	float: left;
+  float: left;
 }
 
 #navigation {
-	display: table;
-	width: 100%;
+  display: table;
+  width: 100%;
 }
 
 
 #menubox a {
-	margin-left: 20px;
+  margin-left: 20px;
 }
 
 #register_form {
-	margin: 0 auto;
-	margin-top: 35px;
-	width: 400px;
+  margin: 0 auto;
+  margin-top: 35px;
+  width: 400px;
 }
 
 #register_form label {
-	font-size: 11px;
-	color: #666;
+  font-size: 11px;
+  color: #666;
 }
 
 #register_form #password {
-	display: block;
-	font-size: 26px;
-	padding: 3px;
-	width: 100%;
+  display: block;
+  font-size: 26px;
+  padding: 3px;
+  width: 100%;
 }
 
 #login_box {
-	padding: 4px;
-	display: none;
-	float: right;
-	background: #ddd;
+  padding: 4px;
+  display: none;
+  float: right;
+  background: #ddd;
 }
 
 #login_box .errors {
-	font-size: 13px;
+  font-size: 13px;
 }
