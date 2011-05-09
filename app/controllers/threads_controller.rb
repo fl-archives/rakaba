@@ -3,6 +3,11 @@ class ThreadsController < ApplicationController
 
   def create
     return not_found if not request.post?
+    if anonymous?
+      if not captcha_correct?
+        return render(text: t('errors.captcha'))
+      end
+    end
     permission = get_write_permission
     if permission != true
       return render(text: permission)
@@ -23,7 +28,6 @@ class ThreadsController < ApplicationController
         thread.file_type = file_result[:file_type]
         thread.message = parse(thread.message)
         thread.save
-        expire_board
         puts 'okay'
         if params[:goto] == 'thread'
           return render(text: thread_url(thread.rid))

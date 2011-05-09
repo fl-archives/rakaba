@@ -3,6 +3,7 @@
 require 'digest'
 require 'fileutils'
 require 'RMagick'
+require 'net/http'
 require File.expand_path('../application', __FILE__)
 
 VERSION = "0.3-dev"
@@ -18,6 +19,8 @@ INITIAL_BOARDS = [
   {alias: :zen, name: 'Дзен',         level: 2},
 ]
 $registration = true
+RCC_PUB = "6Lc-LMQSAAAAAIz-UA6kj9y2d5pS13ZkdQo_uvFA"
+RCC_PRIV = "6Lc-LMQSAAAAAKvsl2yod2E-VoUaDc4QDXyCqfji"
 
 Haml::Template.options[:format]     = :xhtml
 Haml::Template.options[:ugly]       = true
