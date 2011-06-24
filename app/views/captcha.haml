@@ -1,8 +1,0 @@
--cache('captcha') do
-	#recaptcha_widget{style: 'display: none'}
-		%label
-			-i = 'recaptcha_response_field'
-			%input{name: i, id: i, type: 'text', size: 16}
-		%a{href: 'javascript:Recaptcha.reload()'}
-			#recaptcha_image
-	%script{type: 'text/javascript', src: "http://www.google.com/recaptcha/api/challenge?k=#{RCC_PUB}"}

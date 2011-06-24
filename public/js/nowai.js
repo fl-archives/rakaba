@@ -1,8 +1,4 @@
 // Rakaba script, copyright Nowai team 2011, GNU GPL, blah blah
-var RecaptchaOptions = {
-  theme: 'custom',
-  custom_theme_widget: 'recaptcha_widget'
-}
 
 var form_moved        = false;
 var highlighted_post  = null;
@@ -51,7 +47,6 @@ function submit_register() {
       else {
         unblur_form(form);
         errors.html(response);
-        Recaptcha.reload();
       }
     },
     error: function() {
@@ -112,9 +107,7 @@ function highlight_post(id) {
   post = $('#' + id);
   post.addClass('selected');
   if (highlighted_post != null) {
-    if (highlighted_post.attr('id') != post.attr('id')) {
-      highlighted_post.removeClass('selected');
-    }
+    highlighted_post.removeClass('selected');
   }
   highlighted_post = post;
 }
@@ -212,7 +205,6 @@ function submit_thread() {
         // Ошибка
         unblur_form(form);
         errors.html(reply);
-        Recaptcha.reload();
       }
     }, 
     error: function() {
@@ -243,7 +235,7 @@ function submit_reply() {
           form_moved = false;
         } 
         else {
-          if (thread.find('.post').length == 4) {
+          if (thread.find('.post').length == 3) {
             thread.find('.post:first').remove();
           }
           thread.append(post);

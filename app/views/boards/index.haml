@@ -7,30 +7,32 @@
       %tr
         .errors
       %tr
-        %td.label Тема
+        %td.label
+          Тема
         %td
           = f.text_field :title, id: 'title_input'
           = f.submit id: 'submit_button', value: 'отправить'
       %tr
-        %td.label Сообщение
+        %td.label
+          Сообщение
         %td
           = render template: 'editbox'
           = f.text_area :message
       %tr
-        %td.label Файл
+        %td.label
+          Файл
         %td
           %input#file{type: 'file', name: 'file'}
       %tr
-        %td.label Перейти к
+        %td.label
+          Перейти к
         %td
           %label
-            %input{type: 'radio', name: 'goto', value: 'thread', checked: true} треду
+            %input{type: 'radio', name: 'goto', value: 'thread', checked: true}
+            треду
           %label
-            %input{type: 'radio', name: 'goto', value: 'board'} доске
-      -if anonymous?
-        %tr
-          %td.label Капча
-          %td= render(template: 'captcha')
+            %input{type: 'radio', name: 'goto', value: 'board'}
+            доске
   %hr
   %br
 = render template: 'reply_form'
@@ -39,16 +41,14 @@
   -@threads.each do |thread|
     .thread_container
       = render partial: 'threads/thread', object: thread
-      -if thread.replies_count > 4
+      -if thread.replies_count > 3
         %span.mini.omitted 
-          -replies = thread.replies_count - 4
+          -replies = thread.replies_count - 3
           Пропущено
           %b= replies
           = "#{verbose_replies replies}."
-          Нажмите&nbsp;
-          %a{href: url_for(controller: 'threads', action: 'show', id: thread.rid, format: 'html')}<> здесь
-          , чтобы увидеть всё целиком.
-      = render partial: 'posts/post', collection: thread.last_replies(4)
+          Нажмите «Открыть тред», чтобы увидеть всё целиком.
+      = render partial: 'posts/post', collection: thread.last_replies(3)
     %hr
 
   #pages

@@ -133,7 +133,7 @@ hr {
   padding: 8px;
   padding-top: 2px;
   display: table;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 #reply_form_container {
@@ -462,7 +462,6 @@ blockquote {
   margin: 0 auto;
   margin-top: 35px;
   width: 400px;
-  text-align: center;
 }
 
 #register_form label {
@@ -471,8 +470,10 @@ blockquote {
 }
 
 #register_form #password {
-  text-align: center;
-  width: 200px;
+  display: block;
+  font-size: 26px;
+  padding: 3px;
+  width: 100%;
 }
 
 #login_box {
@@ -484,37 +485,4 @@ blockquote {
 
 #login_box .errors {
   font-size: 13px;
-}
-
-
-#recaptcha_widget {
-  text-align: center;
-}
-
-#recaptcha_response_field {
-  width: 200px;
-}
-
-#recaptcha_image {
-  display: table;
-  margin: 0 auto;
-  margin-top: 3px;
-}
-
-#recaptcha_image img {
-  border: 1px solid #ccc;
-}
-
-#regsubmit {
-  margin-top: 20px;
-  cursor: pointer;
-}
-
-#thread_form #recaptcha_widget {
-  text-align: left;
-}
-#thread_form #recaptcha_image {
-  display: block;
-  margin: 0;
-  margin-top: 3px;
 }

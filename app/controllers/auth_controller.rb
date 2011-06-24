@@ -22,18 +22,14 @@ class AuthController < ApplicationController
   def register
     for_anonymous
     if request.post?
-      if not captcha_correct?
-        return render(text: t('errors.captcha'))
+      password = params[:user][:password]
+      if password.length < 6
+        return render(text: t('errors.short_password'))
       else
-        password = params[:user][:password]
-        if password.length < 6
-          return render(text: t('errors.short_password'))
-        else
-          password = Digest::MD5.hexdigest(SALT + password)
-          user = User.create(password: password)
-          set_session(user.id)
-          return render(text: url_for(:root))
-        end
+        password = Digest::MD5.hexdigest(SALT + password)
+        user = User.create(password: password)
+        set_session(user.id)
+        return render(text: url_for(:root))
       end
     end
   end

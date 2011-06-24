@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def expire_board
+    (1..10).each do |page|
+      expire_fragment("#{@board.alias}_page_#{page}")
+    end
+  end
+
   def get_write_permission
     url = url_for(controller: 'application', action: 'banned')
     if @level > 1
@@ -197,16 +203,5 @@ class ApplicationController < ActionController::Base
     else
       return nil
     end
-  end
-
-  def captcha_correct?
-    link = 'http://www.google.com/recaptcha/api/verify'
-    result = Net::HTTP.post_form(URI.parse(link), {
-      privatekey:   RCC_PRIV,
-      remoteip:     request.remote_ip,
-      challenge:    params[:recaptcha_challenge_field],
-      response:     params[:recaptcha_response_field],
-    }).body
-    return result == "true\nsuccess"
   end
 end

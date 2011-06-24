@@ -16,9 +16,4 @@
     %label{for: 'password'}
       Сложный пароль, который я запомню и без повторного набора:
     = f.password_field(:password, id: 'password')
-    %br
-    %br
-    %label{for: 'recaptcha_response_field'}
-      Два интересных слова с картинки:
-    = render(template: 'captcha')
-    = f.submit('Я молодец!', id: 'regsubmit')
+    = f.submit('Я молодец!')
