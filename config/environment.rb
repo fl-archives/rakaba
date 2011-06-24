@@ -24,4 +24,4 @@ Haml::Template.options[:ugly]       = true
 ActionController::Base.cache_store  = :memory_store
 
 # Initialize the rails application
-Rails::Application.initialize!
+Rakaba::Application.initialize!
